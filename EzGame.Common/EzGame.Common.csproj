@@ -1,13 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <UserSecretsId>aspnet-EzGame.Common-DAA46A75-1665-4CEB-BA25-72419A755934</UserSecretsId>
-        <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.1.6"/>
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
 
 </Project>

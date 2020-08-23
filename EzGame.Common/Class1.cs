@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EzGame.WebApp
+namespace EzGame.Common
 {
     public class Class1
     {
