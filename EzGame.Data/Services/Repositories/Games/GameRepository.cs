@@ -4,16 +4,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EzGame.Data.Context;
+using EzGame.Data.Interfaces.Repositories.Games;
 using EzGame.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EzGame.Data.Services.Repositories.Games
 {
-    public class GameRepositories
+    public class GameRepository : IGameRepository
     {
         #region ctor
         private readonly DatabaseContext _db;
-        public GameRepositories(DatabaseContext db)
+        public GameRepository(DatabaseContext db)
         {
             _db = db;
         }
@@ -137,7 +138,7 @@ namespace EzGame.Data.Services.Repositories.Games
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        ~GameRepositories()
+        ~GameRepository()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(false);

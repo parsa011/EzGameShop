@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace EzGame.Data.Services.Repositories
 {
-   public class DoilarPriceRepository:IDollarPriceRepository
+   public class DollarPriceRepository:IDollarPriceRepository
     {
         #region ctor
         private readonly DatabaseContext _db;
-        public DoilarPriceRepository(DatabaseContext db)
+        public DollarPriceRepository(DatabaseContext db)
         {
             _db = db;
         }
@@ -132,20 +132,14 @@ namespace EzGame.Data.Services.Repositories
                 _db.Dispose();
             }
 
-            // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-            // TODO: set large fields to null.
-
             _disposedValue = true;
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        ~DoilarPriceRepository()
+        ~DollarPriceRepository()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(false);
         }
-
-        // This code added to correctly implement the disposable pattern.
+        
         public void Dispose()
         {
             Dispose(true);
