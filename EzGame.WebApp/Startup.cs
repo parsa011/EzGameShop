@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Data.Context;
+using EzGame.Data.Interfaces;
+using EzGame.Data.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,11 +27,13 @@ namespace EzGame.WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNToastNotifyNoty();
             services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
             });
+            services.AddScoped<DatabaseContext, DatabaseContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
