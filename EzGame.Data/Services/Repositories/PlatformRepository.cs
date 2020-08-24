@@ -22,9 +22,9 @@ namespace EzGame.Data.Services.Repositories
 
         #endregion
 
-        public Task<int> CountAsync()
+        public async Task<int> CountAsync()
         {
-            throw new NotImplementedException();
+            return await _db.Platforms.CountAsync();
         }
 
         public void Delete(object id)
