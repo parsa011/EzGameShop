@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EzGame.Domain.Core.Interfaces;
+using System;
 
 namespace EzGame.Domain.Core.Services
 {
