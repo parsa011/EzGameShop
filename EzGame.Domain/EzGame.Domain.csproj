@@ -5,8 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Entities" />
       <Folder Include="Enums" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EzGame.Domain.Core\EzGame.Domain.Core.csproj" />
     </ItemGroup>
 
 </Project>
