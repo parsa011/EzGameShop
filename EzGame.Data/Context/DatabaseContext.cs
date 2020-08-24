@@ -16,10 +16,11 @@ namespace EzGame.Data.Context
             
         }
         
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Server=.;Database=;Trusted_Connection=True;MultipleActiveResultSets=true");
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=.;Database=EzGameDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+        }
+        
         public new virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<DollarPrice> DollarPrice { get; set; }
