@@ -105,6 +105,14 @@
     <Content Include="wwwroot\AdminHtml\plugins\bower_components\typeahead.js-master\nhl.json" />
     <Content Include="wwwroot\AdminHtml\plugins\bower_components\vectormap\jquery-jvectormap-2.0.2.css" />
     <Content Include="wwwroot\AdminHtml\plugins\bower_components\x-editable\dist\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Update="Areas\Admin\Views\Genre\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Admin\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
