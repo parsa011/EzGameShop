@@ -201,7 +201,7 @@
                 var id = $("#DeleteID").val();
                 $.ajax({
                     type: "Post",
-                    url: "/Admin/Group/DeletePlatform",
+                    url: "/Admin/Platform/DeletePlatform",
                     data: { ID: id },
                     success: function (result) {
                         $("#exampleModal3").modal("hide");
