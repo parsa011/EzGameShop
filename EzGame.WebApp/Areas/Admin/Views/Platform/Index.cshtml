@@ -146,15 +146,14 @@
                     success: function (result) {
                         $("#exampleModal").modal("hide");
                         if (result != null) {
+                            debugger;
                             var html = '<tr id="list ' + result.id + '">'
                             html += '<td class="text-center">' + result.id + '</td>'
                             html += '<td>'
                             html += '<img id="Logo ' + result.id + '" src="' + result.logo + '" alt="Alternate Text"  width="36" />'
                             html += '</td>'
-                            html += '<td id="Name ' + result.id + '>'
-                            html += '' + platformTitle + ''
-                            html += '</td>'
-                            html += '<td id="isActive ' + result.id + '>'
+                            html += '<td id="Name ' + result.id + '">' + platformTitle + '</td>'
+                            html += '<td id="isActive ' + result.id + '">'
                             html += '' + result.isDeleted== true?"حذف شده":"حذف نشده" + ''
                             html += '</td>'
                             html += '<td>'
