@@ -142,20 +142,20 @@
                 $.ajax({
                     type: "Post",
                     data: { Title: platformTitle, isDeleted: platformIsdeleted, Logo: platformLogo },
-                    url: "Platform/AddPlatform",
+                    url: "/Admin/Platform/AddPlatform",
                     success: function (result) {
                         $("#exampleModal").modal("hide");
                         if (result != null) {
                             var html = '<tr id="list ' + result.id + '">'
                             html += '<td class="text-center">' + result.id + '</td>'
                             html += '<td>'
-                            html += '<img id="Logo ' + result.id + '" src="' + result.logo + '" alt="Alternate Text"  width="36"  />'
+                            html += '<img id="Logo ' + result.id + '" src="' + result.logo + '" alt="Alternate Text"  width="36" />'
                             html += '</td>'
                             html += '<td id="Name ' + result.id + '>'
-                            html += '' + result.title + ''
+                            html += '' + platformTitle + ''
                             html += '</td>'
                             html += '<td id="isActive ' + result.id + '>'
-                            html += '' + result.isDeleted + ''
+                            html += '' + result.isDeleted== true?"حذف شده":"حذف نشده" + ''
                             html += '</td>'
                             html += '<td>'
                             html += '<button type="button" attr="' + result.id + '" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-trash"></i></button>'
@@ -176,18 +176,18 @@
                 var Logo = $("#UpdateLogogroup").val();
                 $.ajax({
                     type: "Post",
-                    url: "Platform/UpdatePlatform",
+                    url: "/Admin/Platform/UpdatePlatform",
                     data: { ID: id, isDeleted: isActive, Title: name, logo: Logo },
                     success: function (result) {
                         $("#exampleModal2").modal("hide");
                         if (result != null) {
-                            document.getElementById("Name " + result.id).innerHTML = result.name;
+                            document.getElementById("Name " + result.id).innerHTML = result.title;
                             var logo = document.getElementById("Logo " + result.id).getAttribute("src");
                             logo = result.logo;
-                            if (result.isDeleted) {
-                                document.getElementById("isActive " + result.id).innerHTML = "فعال";
+                            if (result.isDeleted == true) {
+                                document.getElementById("isActive " + result.id).innerHTML = "حذف شده";
                             } else {
-                                document.getElementById("Name " + result.id).innerHTML = "غیر فعال";
+                                document.getElementById("isActive " + result.id).innerHTML = "حذف نشده";
 
                             }
                         }

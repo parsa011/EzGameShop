@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using EzGame.Common.Filters.ActionFilters;
 using EzGame.Data.Context;
 using EzGame.Data.Interfaces;
 using EzGame.Domain.Entities;
@@ -20,13 +22,17 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             _db = db;
             _notification = notification;
         }
-        
+
+        //Get
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var getAll = await _db.PlatformRepository.GetAllAsync(a=>!a.IsDeleted);
             return View(getAll);
         }
         
+        [HttpPost]
+        [AjaxOnly]
         public async Task<ActionResult> AddPlatform(string title,string isDeleted,string logo)
         {
             if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(isDeleted) && !string.IsNullOrEmpty(logo))
@@ -48,6 +54,8 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             return Json(null);
         }
         
+        [AjaxOnly]
+        [HttpPost]
         public async Task<ActionResult> GetPlatformById(string id)
         {
             if (!string.IsNullOrEmpty(id))
@@ -58,7 +66,9 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             _notification.AddErrorToastMessage("دوباره امتحان کنید");
             return Json(null);
         }
-        
+
+        [AjaxOnly]
+        [HttpPost]
         public ActionResult UpdatePlatform(string id, string title, string isDeleted,string logo)
         {
             if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(isDeleted) && !string.IsNullOrEmpty(logo))
@@ -77,7 +87,9 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
             return Json(null);
         }
-        
+
+        [AjaxOnly]
+        [HttpPost]
         public ActionResult DeletePlatform(string id)
         {
             if (!string.IsNullOrEmpty(id))
