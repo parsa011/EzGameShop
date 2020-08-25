@@ -5,71 +5,65 @@
 }
 
 
-<div class="row" style="background:white">
+<div class="row" style="background: white; margin-top: 10px;border-radius: 5px;
+">
     <div class="text-center">
         <h2>افزودن بازی</h2>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="width: 100%; padding: 27px;">
         <form asp-action="AddGame">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Game.ImageName" class="control-label"></label>
-                <input asp-for="Game.ImageName" class="form-control"/>
+                <div class="white-box">
+                    <label for="input-file-now-custom-1">تصویر را انتخاب کنید</label>
+                     <input type="file" id="input-file-now" class="dropify" />
+                </div>
                 <span asp-validation-for="Game.ImageName" class="text-danger"></span>
             </div>
             <div>
                 <div class="form-group">
-                    <label asp-for="Platforms" class="control-label"></label>
-                    <select asp-for="Platforms" class="form-control" asp-items="ViewBag.Platforms">
+                    <label  class="control-label">پلتفرم</label>
+                    <select asp-for="Platforms" class="form-control" multiple asp-items="ViewBag.Platforms">
                         <option selected="">انتخاب کنید</option>
                     </select>
                     <span asp-validation-for="Platforms" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Genres" class="control-label"></label>
-                    <select asp-for="Genres" class="form-control" asp-items="ViewBag.Genres">
+                    <label  class="control-label">ژانر</label>
+                    <select asp-for="Genres" class="form-control" multiple asp-items="ViewBag.Genres">
                         <option selected="">انتخاب کنید</option>
                     </select>
                     <span asp-validation-for="Genres" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Game.Title" class="control-label"></label>
+                <label class="control-label">نام بازی</label>
                 <input asp-for="Game.Title" class="form-control"/>
                 <span asp-validation-for="Game.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Game.Explanation" class="control-label"></label>
-                <input asp-for="Game.Explanation" class="form-control"/>
+                <label class="control-label"> توضیح کوتاه</label>
+                <input asp-for="Game.Explanation" class="form-control" />
                 <span asp-validation-for="Game.Explanation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Game.Summary" class="control-label"></label>
-                <input asp-for="Game.Summary" class="form-control"/>
+                <label  class="control-label">متن</label>
+                <textarea class="form-control text-box multi-line" data-val="true" asp-for="Game.Summary"></textarea>
                 <span asp-validation-for="Game.Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Game.Count" class="control-label"></label>
+                <label  class="control-label">تعداد بازی</label>
                 <input asp-for="Game.Count" class="form-control"/>
                 <span asp-validation-for="Game.Count" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Game.ComingSoon"/> @Html.DisplayNameFor(model => model.Game.ComingSoon)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Game.IsDeleted"/> @Html.DisplayNameFor(model => model.Game.IsDeleted)
+                    <input class="form-check-input" asp-for="Game.ComingSoon"/> بزودی
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary" style="width:100%"/>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>

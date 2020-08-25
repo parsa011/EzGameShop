@@ -29,12 +29,12 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
 
         public async Task FillGenresViewBag()
         {
-            ViewBag.Genres = (await _db.GenreRepository.GetAllAsync()).Select(g => new SelectListItem(g.Title, g.Id.ToString()));
+            ViewBag.Genres = (await _db.GenreRepository.GetAllAsync(a=>!a.IsDeleted)).Select(g => new SelectListItem(g.Title, g.Id.ToString()));
         }
         
         public async Task FillPlatformsViewBag()
         {
-            ViewBag.Platforms = (await _db.PlatformRepository.GetAllAsync()).Select(g => new SelectListItem(g.Title, g.Id.ToString()));
+            ViewBag.Platforms = (await _db.PlatformRepository.GetAllAsync(a => !a.IsDeleted)).Select(g => new SelectListItem(g.Title, g.Id.ToString()));
         }
 
         #endregion
