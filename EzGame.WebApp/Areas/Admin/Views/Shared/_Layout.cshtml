@@ -78,13 +78,13 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li>
-                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="index" class="waves-effect @Html.IsActive("DashBoard","Index")">
+                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="index" class="waves-effect @Html.IsActive("DashBoard")">
                         <i class="fa fa-home fa-fw"></i>
                         <span class="hide-menu">صفحه اصلی</span>
                     </a>
                 </li>
                 <li>
-                    <a asp-area="Admin" asp-controller="" class="waves-effect @Html.IsActive("Platform","Index")">
+                    <a asp-area="Admin" asp-controller="" class="waves-effect @Html.IsActive("Platform")">
                         <i class="mdi mdi-human-greeting fa-fw" data-icon="v"></i>
                         @* <span class="hide-menu"> *@
                         <span class="hide-menu"> مدیریت پلتفرم ها
@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 <li>
-                    <a asp-area="Admin" asp-controller="Genre" class="waves-effect @Html.IsActive("Gener","Index")">
+                    <a asp-area="Admin" asp-controller="Genre" class="waves-effect @Html.IsActive("Gener")">
                         <i class="mdi mdi-book-plus fa-fw" data-icon="v"></i>
                         <span class="hide-menu">
                             مدیریت ژانر ها
