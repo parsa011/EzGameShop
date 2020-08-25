@@ -1,5 +1,125 @@
-﻿@{
-    ViewBag.Title = "title";
+﻿@model IEnumerable<Genre>
+@{
+    ViewBag.Title = "مدیریت ژانر ها";
 }
 
-<h2>title</h2>
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">مدیریت ژانر ها <a style="float: left" data-toggle="modal" data-target="#Modal" href="#!" class="btn btn-primary btnCreate">افرودن ژانر</a></div>
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>نام</th>
+                        <th>مدیریت کردن</th>
+                    </tr>
+                    </thead>
+                    <tbody id="group-list">
+                    @foreach (var item in Model)
+                    {
+                        <tr id="list @item.Id">
+                            <td class="text-center">@item.Id</td>
+                            <td id="Name @item.Id">
+                                @item.Title
+                            </td>
+                            <td>
+                                <button type="button"
+                                        data-toggle="modal" data-target="#Modal" data-PropTitle="@item.Title" data-PropID="@item.Id"
+                                        class="btn btn-info btn-outline btn-circle btn-lg m-r-5 btnDelete">
+                                    <i class="ti-trash"></i>
+                                </button>
+                                <button type="button" 
+                                        data-toggle="modal" data-target="#Modal" data-PropTitle="@item.Title" data-PropID="@item.Id"
+                                        class="btn btn-info btn-outline btn-circle btn-lg m-r-5 btnEdit">
+                                    <i class="ti-pencil-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="display: inline" id="exampleModalLabel">هشدار</h5>
+                <button type="button" class="close p-0 m-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="modalH3">حذف</h3>
+                <p>
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">خیر</button>
+                <a href="" class="btn btn-primary confirmModal">بلی</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+    // ReSharper disable StringLiteralWrongQuotes
+    // ReSharper disable PossiblyUnassignedProperty
+    $(document).ready(function () {
+         $(modalConfirm).unbind('click');
+                var modalTitle = $('.modal .modal-title');
+                var modalContent = $('.modal-body p');
+                var modalH3 = $('.modalH3');
+                var modalButton = $('.modal-footer button');
+                var modalConfirm = $('.modal-footer .confirmModal');
+                $('.btnDelete').click(function () {
+                    var PropID = $(this).attr('data-PropID');
+                    var PropTitle = $(this).attr('data-PropTitle');
+                    modalTitle.html('هشدار');
+                    modalH3.html('حذف');
+                    modalConfirm.html('بلی');
+                    modalContent.html('ایا از حذف' + ' <span class="text-muted"> ' + PropTitle + ' </span> ' + 'مطمئن هستید؟');
+                    modalConfirm.attr('href', '/Admin/Genre/Command?id=' + PropID+ '&mode=delete');
+                });
+                $('.btnEdit').click(function () {
+                     $(modalConfirm).unbind('click');
+                    var PropID = $(this).attr('data-PropID');
+                    var PropTitle = $(this).attr('data-PropTitle');
+                    console.log(PropTitle);
+                    modalTitle.html('عملیات');
+                    modalH3.html('ویرایش');
+                    modalButton.html('لغو');
+                    modalConfirm.html('ارسال');
+                    var form = ' <input type="text" name="Title" value="' +
+                        PropTitle +
+                        '" class="form-control" placeholder="عنوان نسخه" />';
+                    modalConfirm.click(function (e) {
+                        $(this).attr('href', '/Admin/Genre/Command?id=' + PropID + '&title=' + $('input[name="Title"]').val() + '&mode=edit');
+                    });
+                    modalContent.html(form);
+                });
+                $('.btnCreate').click(function () {
+                     $(modalConfirm).unbind('click');
+                    modalTitle.html('عملیات');
+                    modalH3.html('ثبت');
+                    modalButton.html('لغو');
+                    modalConfirm.html('ارسال');
+                    var form = '<input type="text" name="Title" value="' +
+                        '" class="form-control" placeholder="عنوان" />';
+                    modalContent.html(form);
+                    modalConfirm.click(function() {
+                        $(this).attr('href', '/Admin/Genre/Command?title=' + $('input[name="Title"]').val() + '&mode=create');
+            });
+      });
+    
+    });
+    </script>
+}
