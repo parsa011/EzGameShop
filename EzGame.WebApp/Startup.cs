@@ -6,6 +6,8 @@ using EzGame.Data.Context;
 using EzGame.Data.Interfaces;
 using EzGame.Data.UnitOfWork;
 using EzGame.IOC.NotificationConfig;
+using EzGame.Services.FileManager;
+using EzGame.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

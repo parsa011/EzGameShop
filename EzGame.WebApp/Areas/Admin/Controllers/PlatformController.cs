@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EzGame.Common.Filters.ActionFilters;
-using EzGame.Data.Context;
 using EzGame.Data.Interfaces;
 using EzGame.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +35,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             {
                 var platform = new Platform()
                 {
-                    Title = title,
+                    Title = title,    
                     Logo = logo,
                     IsDeleted = isDeleted == "حذف شده",
                     CreatedTime=DateTime.Now,
@@ -82,7 +78,6 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 _db.SaveChange();
                 _notification.AddSuccessToastMessage($"پلتفرم {title} با موفقیت ویرایش شد.");
                 return Json(platform);
-
             }
             _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
             return Json(null);
