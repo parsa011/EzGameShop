@@ -69,7 +69,7 @@
                 <input type="text" class="form-control" id="creaTtitlePlatform" name="name" value=""/>
             </div>
             <div class="form-group">
-                <label for="">غکس :</label>
+                <label for="">عکس :</label>
                 <input type="url" class="form-control" id="creaLogoPlatform" name="name" value=""/>
             </div>
             <div class="form-group">
@@ -97,7 +97,7 @@
                 <input type="text" class="form-control" id="Updatenamegroup" name="name" value=""/>
             </div>
             <div class="form-group">
-                <label for="">غکس :</label>
+                <label for="">عکس :</label>
                 <input type="url" class="form-control" id="UpdateLogogroup" name="name" value=""/>
             </div>
             <div class="form-group">
@@ -107,7 +107,7 @@
                     <option>حذف شده</option>
                 </select>
             </div>
-            <button style="width:100%;margin-top:10px" class="btn btn-success" id="saveUpdate">ویرایش</button>
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="btnUpdate">ویرایش</button>
         </div>
     </div>
 </div>
@@ -120,7 +120,7 @@
             </label>
 
             <br/>
-            <button style="width:100%;margin-top:10px" class="btn btn-success" id="saveDelete">حذف</button>
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="btnDelete">حذف</button>
         </div>
     </div>
 </div>
@@ -169,7 +169,7 @@
                 });
             })
             //ویرایش کردن
-            $("#saveUpdate").click(function (e) {
+            $("#btnUpdate").click(function (e) {
                 var id = $("#Updateidgroup").val();
                 var isActive = $("#UpdateGroupIsActive").val();
                 var name = $("#Updatenamegroup").val();
@@ -196,12 +196,12 @@
                 })
             });
             //حذف
-            $("#saveDelete").click(function (e) {
+            $("#btnDelete").click(function (e) {
                 e.preventDefault();
                 var id = $("#DeleteID").val();
                 $.ajax({
                     type: "Post",
-                    url: "Group/DeleteGroup",
+                    url: "/Admin/Group/DeletePlatform",
                     data: { ID: id },
                     success: function (result) {
                         $("#exampleModal3").modal("hide");
