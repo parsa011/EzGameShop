@@ -1,8 +1,7 @@
-﻿@model EzGame.Domain.Entities.Game
+﻿@model GameCreateViewModel
 
 @{
-    ViewData["Title"] = "AddGame";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "افزودن بازی";
 }
 
 
@@ -14,24 +13,29 @@
         <form asp-action="AddGame">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ImageName" class="control-label"></label>
-                <input asp-for="ImageName" class="form-control" />
-                <span asp-validation-for="ImageName" class="text-danger"></span>
+                <label asp-for="Game.ImageName" class="control-label"></label>
+                <input asp-for="Game.ImageName" class="form-control" />
+                <span asp-validation-for="Game.ImageName" class="text-danger"></span>
+            </div>
+            <div>
+                <select asp-for="Genres" class="form-control" asp-items="ViewBag.Platforms">
+                    <option selected="">انتخاب کنید</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Game.Title" class="control-label"></label>
+                <input asp-for="Game.Title" class="form-control" />
+                <span asp-validation-for="Game.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Explanation" class="control-label"></label>
-                <input asp-for="Explanation" class="form-control" />
-                <span asp-validation-for="Explanation" class="text-danger"></span>
+                <label asp-for="Game.Explanation" class="control-label"></label>
+                <input asp-for="Game.Explanation" class="form-control" />
+                <span asp-validation-for="Game.Explanation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Summary" class="control-label"></label>
-                <input asp-for="Summary" class="form-control" />
-                <span asp-validation-for="Summary" class="text-danger"></span>
+                <label asp-for="Game.Summary" class="control-label"></label>
+                <input asp-for="Game.Summary" class="form-control" />
+                <span asp-validation-for="Game.Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Count" class="control-label"></label>
@@ -40,37 +44,12 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ComingSoon" /> @Html.DisplayNameFor(model => model.ComingSoon)
+                    <input class="form-check-input" asp-for="Game.ComingSoon" /> @Html.DisplayNameFor(model => model.Game.ComingSoon)
                 </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedTime" class="control-label"></label>
-                <input asp-for="CreatedTime" class="form-control" />
-                <span asp-validation-for="CreatedTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastModifiedTime" class="control-label"></label>
-                <input asp-for="LastModifiedTime" class="form-control" />
-                <span asp-validation-for="LastModifiedTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedBy" class="control-label"></label>
-                <input asp-for="ModifiedBy" class="form-control" />
-                <span asp-validation-for="ModifiedBy" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                    <input class="form-check-input" asp-for="Game.IsDeleted" /> @Html.DisplayNameFor(model => model.Game.IsDeleted)
                 </label>
             </div>
             <div class="form-group">
