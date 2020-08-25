@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NToastNotify;
 
 namespace EzGame.WebApp.Areas.Admin.Controllers
@@ -25,8 +26,9 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         {
             return View();
         }
-        public IActionResult AddGame()
+        public async Task<IActionResult> AddGame()
         {
+            ViewBag.Platforms = new SelectList(await _db.PlatformRepository.GetAllAsync(a=>!a.IsDeleted),"Platform","Title");
             return View();
         }
     }
