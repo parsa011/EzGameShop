@@ -44,7 +44,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var group = await _db.GenreRepository.GetByIdAsync(id);
+            var genre = await _db.GenreRepository.GetByIdAsync(id);
             switch (mode.ToUpper())
             {
                 case "CREATE":
@@ -52,17 +52,17 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                     {
                         Title = title
                     });
-                    _notification.AddSuccessToastMessage($"گروه {title} با موفقیت اضافه شده است");
+                    _notification.AddSuccessToastMessage($"ژانر {title} با موفقیت اضافه شده است");
                     break;
                 case "EDIT":
-                    group.Title = title;
-                    group.LastModifiedTime = DateTime.Now;
-                    _db.GenreRepository.Update(group);
-                    _notification.AddSuccessToastMessage($"گروه {title} با موفقیت ویرایش شده است");
+                    genre.Title = title;
+                    genre.LastModifiedTime = DateTime.Now;
+                    _db.GenreRepository.Update(genre);
+                    _notification.AddSuccessToastMessage($"ژانر {title} با موفقیت ویرایش شده است");
                     break;
                 case "DELETE":
-                    _db.GenreRepository.Delete(group);
-                    _notification.AddSuccessToastMessage($"گروه {title} با موفقیت حذف شده است");
+                    _db.GenreRepository.Delete(genre);
+                    _notification.AddSuccessToastMessage($"ژانر {title} با موفقیت حذف شده است");
                     break;
             }
 
