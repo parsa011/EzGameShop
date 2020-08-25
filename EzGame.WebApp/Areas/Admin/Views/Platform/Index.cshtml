@@ -1,0 +1,261 @@
+﻿@model IEnumerable<EzGame.Domain.Entities.Platform>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #OpenCreatModal {
+        float: left;
+        background: #707cd2;
+        padding: 6px;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+        #OpenCreatModal:hover {
+            background: white;
+            border: 1px solid #707cd2;
+            color: #707cd2;
+        }
+</style>
+
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">مدیریت پلتفرم <a id="OpenCreatModal">افرودن  پلتفرم</a></div>
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                        <tr>
+                            <th width="70" class="text-center">#</th>
+                            <th>لوگو</th>
+                            <th>نام</th>
+                            <th>وضعیت</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-list">
+                        @foreach (var item in Model)
+                        {
+                            <tr id="list @item.Id">
+                                <td class="text-center">@item.Id</td>
+                                <td>
+                                    <img id="Logo @item.Id" src="@item.Logo" alt="Alternate Text" width="36" />
+                                </td>
+                                <td id="Name @item.Id">
+                                    @item.Title
+                                </td>
+                                <td id="isActive @item.IsDeleted ">
+                                    @if (item.IsDeleted == false)
+                                    {
+                                        <label>حذف نشده</label>
+                                    }
+                                    else
+                                    {
+                                        <label>حذف شده</label>
+
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-trash"></i></button>
+                                    <button type="button" attr="@item.Id" onclick="OpenUpdateModal(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-pencil-alt"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <label>
+                افزودن پلتفرم
+            </label>
+            <br />
+            نام : <input type="text" class="form-control" id="creaTtitlePlatform" name="name" value="" />
+            <br />
+            لوگو : <input type="url" class="form-control" id="creaLogoPlatform" name="name" value="" />
+            <br />
+            وضعیت :
+            <select class="form-control" id="CreatTitleIsDeleted">
+                <option>حذف نشده</option>
+                <option>حذف شده</option>
+            </select>
+
+            <br />
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="save">افزودن</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <input type="hidden" id="Updateidgroup" name="name" value="" />
+            <label>
+                ویرایش پلتفرم
+            </label>
+            <br />
+            نام : <input type="text" class="form-control" id="Updatenamegroup" name="name" value="" />
+            <br />
+            نام : <input type="url" class="form-control" id="UpdateLogogroup" name="name" value="" />
+            <br />
+            وضعیت :
+            <select class="form-control" id="UpdateGroupIsActive">
+                <option>حذف نشده</option>
+                <option>حذف شده</option>
+            </select>
+            <br />
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="saveUpdate">ویرایش</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <input type="hidden" id="DeleteID" name="name" value="" />
+            <label id="lal">
+
+            </label>
+
+            <br />
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="saveDelete">حذف</button>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //افزودن
+            $("#OpenCreatModal").click(function () {
+                $("#exampleModal").modal("show");
+                $("#creaTtitlePlatform").val("");
+                $("#creaLogoPlatform").val("");
+            });
+            $("#save").click(function (e) {
+                e.preventDefault();
+                var platformTitle = $("#creaTtitlePlatform").val();
+                var platformLogo = $("#creaLogoPlatform").val();
+                var platformIsdeleted = $("#CreatTitleIsDeleted").val();
+                $.ajax({
+                    type: "Post",
+                    data: { Title: platformTitle, isDeleted: platformIsdeleted, Logo: platformLogo },
+                    url: "Platform/AddPlatform",
+                    success: function (result) {
+                        debugger;
+                        $("#exampleModal").modal("hide");
+                        if (result != null) {
+                            var html = '<tr id="list ' + result.id + '">'
+                            html += '<td class="text-center">' + result.id + '</td>'
+                            html += '<td>'
+                            html += '<img id="Logo ' + result.id + '" src="' + result.logo + '" alt="Alternate Text"  width="36"  />'
+                            html += '</td>'
+                            html += '<td id="Name ' + result.id + '>'
+                            html += '' + result.title + ''
+                            html += '</td>'
+                            html += '<td id="isActive ' + result.id + '>'
+                            html += '' + result.isDeleted + ''
+                            html += '</td>'
+                            html += '<td>'
+                            html += '<button type="button" attr="' + result.id + '" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-trash"></i></button>'
+                            html += '<button type="button" attr="' + result.id + '" onclick="OpenUpdateModal(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-pencil-alt"></i></button>'
+                            html += '</td>'
+                            html += '</tr>'
+                            $("#group-list").append(html);
+                        }
+                    }
+
+                });
+            })
+            //ویرایش کردن
+            $("#saveUpdate").click(function (e) {
+                var id = $("#Updateidgroup").val();
+                var isActive = $("#UpdateGroupIsActive").val();
+                var name = $("#Updatenamegroup").val();
+                var Logo = $("#UpdateLogogroup").val();
+                $.ajax({
+                    type: "Post",
+                    url: "Platform/UpdatePlatform",
+                    data: { ID: id, isDeleted: isActive, Title: name, logo: Logo },
+                    success: function (result) {
+                        $("#exampleModal2").modal("hide");
+                        if (result != null) {
+                            document.getElementById("Name " + result.id).innerHTML = result.name;
+                            var logo = document.getElementById("Logo " + result.id).getAttribute("src");
+                            logo = result.logo;
+                            if (result.isDeleted == true) {
+                                document.getElementById("isActive " + result.id).innerHTML = "فعال";
+                            } else {
+                                document.getElementById("Name " + result.id).innerHTML = "غیر فعال";
+
+                            }
+                        }
+                    }
+
+                })
+            });
+            //حذف
+            $("#saveDelete").click(function (e) {
+                e.preventDefault();
+                var id = $("#DeleteID").val();
+                $.ajax({
+                    type: "Post",
+                    url: "Group/DeleteGroup",
+                    data: { ID: id },
+                    success: function (result) {
+                        $("#exampleModal3").modal("hide");
+                        if (result != null) {
+                            document.getElementById("list " + result.id).remove();
+                        } else {
+                            
+                        }
+                    }
+
+                })
+            })
+        });
+        function OpenUpdateModal(obj) {
+            debugger;
+            var attr = obj.getAttribute("attr");
+            $.ajax({
+                type: "Post",
+                url: "Platform/GetPlatformByID",
+                data: { id: attr },
+                success: function (result) {
+                    if (result != null) {
+                        $("#exampleModal2").modal("show");
+                        $("#Updateidgroup").val(result.id);
+                        $("#UpdateLogogroup").val(result.logo);
+                        $("#Updatenamegroup").val(result.title);
+                        if (result.isDeleted == true) {
+                            $("#UpdateGroupIsActive").val("حذف شده");
+                        } else {
+                            $("#UpdateGroupIsActive").val("حذف نشده");
+                        }
+                    }
+                }
+            });
+        }
+        function OpenDeleteModel(obj) {
+            debugger;
+            var attr = obj.getAttribute("attr");
+            $.ajax({
+                type: "Post",
+                url: "Platform/GetPlatformByID",
+                data: { id: attr },
+                success: function (result) {
+                    if (result != null) {
+                        $("#exampleModal3").modal("show");
+                        $("#DeleteID").val(result.id);
+                        document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.title + ' اطمینان دارید؟';
+                    }
+                }
+            });
+        }
+    </script>
+
+
+}
