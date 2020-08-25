@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzGame.WebApp", "EzGame.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzGame.Common", "EzGame.Common\EzGame.Common.csproj", "{4664DF91-00AF-47E9-A486-D8947008D74D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzGame.Data.Test", "EzGame.Data.Test\EzGame.Data.Test.csproj", "{61E03438-6B14-4D00-9F11-025E5821C31B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{4664DF91-00AF-47E9-A486-D8947008D74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4664DF91-00AF-47E9-A486-D8947008D74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4664DF91-00AF-47E9-A486-D8947008D74D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E03438-6B14-4D00-9F11-025E5821C31B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E03438-6B14-4D00-9F11-025E5821C31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E03438-6B14-4D00-9F11-025E5821C31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E03438-6B14-4D00-9F11-025E5821C31B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{046E6374-A840-4123-904F-9C19C6C490FF} = {6CDA2BAB-C044-41E2-BF36-7113A3F5563B}
 		{CA469865-5365-4C0A-BB18-C7CEE775F38B} = {046E6374-A840-4123-904F-9C19C6C490FF}
 		{4664DF91-00AF-47E9-A486-D8947008D74D} = {36B1838B-0D83-4382-A225-6AA84BEE7A08}
+		{61E03438-6B14-4D00-9F11-025E5821C31B} = {5E6F0448-D673-4430-80D4-51063E1A51CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD36438C-2CF4-4574-9B86-24BCCA10B754}

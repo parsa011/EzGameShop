@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0f0b435c_002D0c3b_002D4513_002D96e4_002De8f5c98bdfc1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAll_Platforms_Test #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;MSTest::61E03438-6B14-4D00-9F11-025E5821C31B::.NETCoreApp,Version=v3.1::EzGame.Data.Test.RepositoriesTest.ReposTest.GetAll_Platforms_Test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e5589747_002Dcc66_002D4d70_002Da584_002D01872c4b1659/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAll_Platforms_Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;MSTest::61E03438-6B14-4D00-9F11-025E5821C31B::.NETCoreApp,Version=v3.1::EzGame.Data.Test.RepositoriesTest.ReposTest.GetAll_Platforms_Test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
