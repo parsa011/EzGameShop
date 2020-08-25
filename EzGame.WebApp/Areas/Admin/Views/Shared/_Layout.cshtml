@@ -78,13 +78,13 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li>
-                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="index" class="waves-effect">
+                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="index" class="waves-effect @Html.IsActive("DashBoard","Index")">
                         <i class="fa fa-home fa-fw"></i>
                         <span class="hide-menu">صفحه اصلی</span>
                     </a>
                 </li>
                 <li>
-                    <a asp-area="Admin" asp-controller="" class="waves-effect @Html.IsActive("Platforms","Index")">
+                    <a asp-area="Admin" asp-controller="" class="waves-effect @Html.IsActive("Platform","Index")">
                         <i class="mdi mdi-human-greeting fa-fw" data-icon="v"></i>
                         @* <span class="hide-menu"> *@
                         <span class="hide-menu"> مدیریت پلتفرم ها

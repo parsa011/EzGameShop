@@ -61,7 +61,8 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                     _notification.AddSuccessToastMessage($"ژانر {title} با موفقیت ویرایش شده است");
                     break;
                 case "DELETE":
-                    _db.GenreRepository.Delete(genre);
+                    genre.IsDeleted = true;
+                    _db.GenreRepository.Update(genre);
                     _notification.AddSuccessToastMessage($"ژانر {title} با موفقیت حذف شده است");
                     break;
             }
