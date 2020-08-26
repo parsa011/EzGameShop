@@ -9,6 +9,6 @@ namespace EzGame.Common.ViewModel.Games
     {
         public IEnumerable<Game> Games { get; set; }
         public IEnumerable<GameGenre> GameGenres { get; set; }
-        public IEnumerable<GamePlatform> gamePlatforms { get; set; }
+        public IEnumerable<GamePlatform> GamePlatforms { get; set; }
     }
 }

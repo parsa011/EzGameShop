@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace EzGame.Domain.Enums
 {
-    public class FileManagerType
+    public static class FileManagerType
     {
         public enum FileType
         {
