@@ -19,9 +19,9 @@
                     <tbody id="group-list">
                     @foreach (var item in Model)
                     {
-                        <tr id="list @item.Id">
+                        <tr id="@item.Id">
                             <td class="text-center">@item.Id</td>
-                            <td id="Name @item.Id" class="text-center">
+                            <td id=" @item.Id" class="text-center">
                                 @item.Title
                             </td>
                             <td>

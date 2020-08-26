@@ -7,7 +7,7 @@
 <div class="row" style="margin-top:10px">
     <div class="col-md-12">
         <div class="panel">
-            <div class="panel-heading">مدیریت پلتفرم <a style="float: left" id="OpenCreatModal" class="btn btn-primary">افرودن پلتفرم</a></div>
+            <div class="panel-heading">مدیریت بازی <a style="float: left" id="OpenCreatModal" class="btn btn-primary">افرودن بازی</a></div>
             <div class="table-responsive">
                 <table class="table table-hover manage-u-table">
                     <thead>
@@ -24,7 +24,7 @@
                         {
                             <tr id="@item.Id">
                                 <td>
-                                    <img id="Image-@item.Id" src="@item.ImageName" alt="Alternate Text" width="36" />
+                                    <img id="Image @item.Id" src="~/GameImages/@item.ImageName" alt="Alternate Text" width="70" />
                                 </td>
                                 <td id="Name-@item.Id">
                                     @item.Title
@@ -32,11 +32,11 @@
                                 <td id="Count-@item.Id">
                                     @item.Count
                                 </td>
-                                <td id="Count-@item.Id">
-                                   @Model.gamePlatforms.Where(p => p.GameId == item.Id).Select(p => p.Platform.Title)
+                                <td id="Count @item.Id">
+                                   @Model.GamePlatforms.Where(p => p.GameId == item.Id).Select(p => p.Platform.Title)
                                 </td>
-                                <td id="isActive-@item.IsDeleted ">
-                                    @if (item.IsDeleted == false)
+                                <td id="isActive @item.IsDeleted ">
+                                    @if (!item.IsDeleted)
                                     {
                                         <label>حذف نشده</label>
                                     }
@@ -61,4 +61,3 @@
         </div>
     </div>
 </div>
-
