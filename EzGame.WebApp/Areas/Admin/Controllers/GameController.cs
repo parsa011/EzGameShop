@@ -74,8 +74,6 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             if (!ModelState.IsValid || image == null || !model.Genres.Any() || !model.Platforms.Any())
             {
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
-                await FillGenresViewBag();
-                await FillPlatformsViewBag();
                 return View(model);
             }
             
@@ -94,7 +92,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             };
             foreach (var item in model.Genres)
             {
-                var genre = _db.GenreRepository.Where(a=>a.Title==item.Title).FirstOrDefault();
+                var genre = (await _db.GenreRepository.GetAllAsync(a=>a.Title==item.Title)).FirstOrDefault();
                 await _db.GameGenreRepository.InsertAsync(new GameGenre()
                 {
                     Game=game,
@@ -104,7 +102,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             }
             foreach (var item in model.Platforms)
             {
-                var platform = _db.PlatformRepository.Where(a => a.Title == item.Title).FirstOrDefault();
+                var platform = (await _db.PlatformRepository.GetAllAsync(a => a.Title == item.Title)).FirstOrDefault();
                 await _db.GamePlatformRepository.InsertAsync(new GamePlatform()
                 {
                     Game = game,
@@ -118,6 +116,84 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditGame(string id)
+        {
+            if(string.IsNullOrEmpty(id))
+            {
+                _notification.AddErrorToastMessage("بازی پیدا نشد !");
+                return RedirectToAction(nameof(Index));
+            }
+            var game = await _db.GameRepository.GetByIdAsync(id);
+            if(game == null)
+                return RedirectToAction(nameof(Index));
+            var model = new GameCreateViewModel()
+            {
+                Title = game.Title,
+                // ToDo replace Here
+                Platforms = await _db.PlatformRepository.GetAllAsync(a=>!a.IsDeleted),
+                Genres = await _db.GenreRepository.GetAllAsync(a => !a.IsDeleted)
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditGame(GameCreateViewModel model, IFormFile image)
+        {
+            if (!ModelState.IsValid || image == null || !model.Genres.Any() || !model.Platforms.Any())
+            {
+                _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
+                return View(model);
+            }
+            var game = await _db.GameRepository.GetByIdAsync(model.Id);
+            if (image == null)
+            {
+                model.Image = game.ImageName;
+            }
+            else
+            {
+                if (image.FileName != game.ImageName)
+                {
+                    _fileManager.DeleteImage(game.ImageName, FileManagerType.FileType.GameImage);
+                    model.Image = await _fileManager.UploadImage(image,
+                        FileManagerType.FileType.GameImage);
+                }
+            }
+            foreach(var item in model.Platforms)
+            {
+                var platform = (await _db.PlatformRepository.GetAllAsync(a => a.Title == item.Title)).FirstOrDefault();
+                if((await _db.GamePlatformRepository.GetAllAsync(a=>a.GameId == game.Id && a.PlatformId == platform.Id)).Any())
+                    continue;
+                else{
+                    await _db.GamePlatformRepository.InsertAsync(new GamePlatform{
+                        Game = game,
+                        GameId = game.Id,
+                        PlatformId = platform.Id
+                    });
+                }
+            }
+            foreach(var item in model.Genres)
+            {
+                var genre = (await _db.GenreRepository.GetAllAsync(a=> a.Title == item.Title)).FirstOrDefault();
+                if((await _db.GameGenreRepository.GetAllAsync(a=>a.GameId == game.Id && a.GenreId == item.Id)).Any())
+                    continue;
+                else{
+                    await _db.GameGenreRepository.InsertAsync(new GameGenre()
+                    {
+                        Game=game,
+                        GameId = game.Id,
+                        GenreId = genre.Id
+                    });
+                }
+            }
+            game.Title = model.Title;
+            // TODO replace new value with this values
+            _db.GameRepository.Update(game);
+            await _db.SaveChangeAsync();
+            _notification.AddSuccessToastMessage("بازی با موفقیت ویرایش شد");
+            return RedirectToAction(nameof(Index));
+        }
 
         [AjaxOnly]
         [HttpPost]

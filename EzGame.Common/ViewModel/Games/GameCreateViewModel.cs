@@ -25,6 +25,7 @@ namespace EzGame.Common.ViewModel.Games
         public string Summary { get; set; }
         public int Count { get; set; }
         public bool ComingSoon { get; set; }
+        public string Image { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime LastModifiedTime { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
