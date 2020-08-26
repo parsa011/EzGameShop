@@ -10,51 +10,52 @@
             <div class="table-responsive">
                 <table class="table table-hover manage-u-table">
                     <thead>
-                    <tr>
-                        <th width="70" class="text-center">#</th>
-                        <th>لوگو</th>
-                        <th>نام</th>
-                        <th>وضعیت</th>
-                        <th width="300">مدیریت کردن</th>
-                    </tr>
+                        <tr>
+                            <th width="70" class="text-center">#</th>
+                            <th>لوگو</th>
+                            <th>نام</th>
+                            <th>وضعیت</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
                     </thead>
                     <tbody id="group-list">
-                    @foreach (var item in Model)
-                    {
-                        <tr id="@item.Id">
-                            <td class="text-center">@item.Id</td>
-                            <td>
-                                <img id="Logo-@item.Id" src="@item.Logo" alt="Alternate Text" width="36"/>
-                            </td>
-                            <td id="Name-@item.Id">
-                                @item.Title
-                            </td>
-                            <td id="isActive-@item.IsDeleted ">
-                                @if (item.IsDeleted == false)
-                                {
-                                    <label>حذف نشده</label>
-                                }
-                                else
-                                {
-                                    <label>حذف شده</label>
-                                }
-                            </td>
-                            <td>
-                                <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
-                                    <i class="ti-trash"></i>
-                                </button>
-                                <button type="button" attr="@item.Id" onclick="OpenUpdateModal(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
-                                    <i class="ti-pencil-alt"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var item in Model)
+                        {
+                            <tr id="@item.Id">
+                                <td class="text-center">@item.Id</td>
+                                <td>
+                                    <img id="Logo-@item.Id" src="@item.Logo" alt="Alternate Text" width="36" />
+                                </td>
+                                <td id="Name-@item.Id">
+                                    @item.Title
+                                </td>
+                                <td id="isActive-@item.IsDeleted ">
+                                    @if (item.IsDeleted == false)
+                                    {
+                                        <label>حذف نشده</label>
+                                    }
+                                    else
+                                    {
+                                        <label>حذف شده</label>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                    <button type="button" attr="@item.Id" onclick="OpenUpdateModal(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-pencil-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<!-- Add Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
@@ -65,11 +66,11 @@
             </div>
             <div class="form-group">
                 <label for="">نام :</label>
-                <input type="text" class="form-control" id="creaTtitlePlatform" name="name" value=""/>
+                <input type="text" class="form-control" id="creaTtitlePlatform" name="name" value="" />
             </div>
             <div class="form-group">
                 <label for="">عکس :</label>
-                <input type="url" class="form-control" id="creaLogoPlatform" name="name" value=""/>
+                <input type="url" class="form-control" id="creaLogoPlatform" name="name" value="" />
             </div>
             <div class="form-group">
                 <label for="">وضعیت :</label>
@@ -82,10 +83,11 @@
         </div>
     </div>
 </div>
+<!-- Edit Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
-            <input type="hidden" id="Updateidgroup" name="name" value=""/>
+            <input type="hidden" id="Updateidgroup" name="name" value="" />
             <div class="col-12 text-center">
                 <h3>
                     ویرایش پلتفرم
@@ -93,11 +95,11 @@
             </div>
             <div class="form-group">
                 <label for="">نام :</label>
-                <input type="text" class="form-control" id="Updatenamegroup" name="name" value=""/>
+                <input type="text" class="form-control" id="Updatenamegroup" name="name" value="" />
             </div>
             <div class="form-group">
                 <label for="">عکس :</label>
-                <input type="url" class="form-control" id="UpdateLogogroup" name="name" value=""/>
+                <input type="url" class="form-control" id="UpdateLogogroup" name="name" value="" />
             </div>
             <div class="form-group">
                 <label for="">وضعیت :</label>
@@ -110,15 +112,16 @@
         </div>
     </div>
 </div>
+<!-- delete Modal -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
-            <input type="hidden" id="DeleteID" name="name" value=""/>
+            <input type="hidden" id="DeleteID" name="name" value="" />
             <label id="lal">
 
             </label>
 
-            <br/>
+            <br />
             <button style="width:100%;margin-top:10px" class="btn btn-success" id="btnDelete">حذف</button>
         </div>
     </div>
@@ -153,7 +156,7 @@
                             html += '</td>'
                             html += '<td id="Name-' + result.id + '">' + platformTitle + '</td>'
                             html += '<td id="isActive-' + result.id + '">'
-                            html += '' + result.isDeleted== true?"حذف شده":"حذف نشده" + ''
+                            html += '' + result.isDeleted == true ? "حذف شده" : "حذف نشده" + ''
                             html += '</td>'
                             html += '<td>'
                             html += '<button type="button" attr="' + result.id + '" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-trash"></i></button>'

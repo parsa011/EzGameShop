@@ -9,7 +9,6 @@ namespace EzGame.Common.ViewModel.Games
    public class GameCreateViewModel
     {
         public string Id { get; set; }
-        [Required(ErrorMessage = "لطفا {0} را انتخاب کنید")]
         [Display(Name ="تصویر")]
         public string ImageName { get; set; }
         [Required(ErrorMessage = "لطفا {0} را پر کنید")]
