@@ -1,6 +1,64 @@
-﻿@{
+﻿@model GameIndexViewModel
+@{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">مدیریت پلتفرم <a style="float: left" id="OpenCreatModal" class="btn btn-primary">افرودن پلتفرم</a></div>
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                        <tr>
+                            <th width="70">تصویر</th>
+                            <th>نام</th>
+                            <th>تعداد</th>
+                            <th>پلتفرم</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-list">
+                        @foreach (var item in Model.Games)
+                        {
+                            <tr id="list @item.Id">
+                                <td>
+                                    <img id="Image @item.Id" src="@item.ImageName" alt="Alternate Text" width="36" />
+                                </td>
+                                <td id="Name @item.Id">
+                                    @item.Title
+                                </td>
+                                <td id="Count @item.Id">
+                                    @item.Count
+                                </td>
+                                <td id="Count @item.Id">
+                                   @Model.gamePlatforms.Where(p => p.GameId == item.Id).Select(p => p.Platform.Title)
+                                </td>
+                                <td id="isActive @item.IsDeleted ">
+                                    @if (item.IsDeleted == false)
+                                    {
+                                        <label>حذف نشده</label>
+                                    }
+                                    else
+                                    {
+                                        <label>حذف شده</label>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                    <button type="button" attr="@item.Id" onclick="OpenUpdateModal(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-pencil-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

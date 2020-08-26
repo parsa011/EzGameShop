@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EzGame.Common.ViewModel.Games;
 using EzGame.Data.Interfaces;
 using EzGame.Services.FileManager;
 using EzGame.Services.Interfaces;
@@ -40,9 +41,15 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         #endregion
         
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult>  Index()
         {
-            return View();
+            var viewmodel = new GameIndexViewModel()
+            {
+                GameGenres = await _db.GameGenreRepository.GetAllAsync(),
+                gamePlatforms = await _db.GamePlatformRepository.GetAllAsync(),
+                Games = await _db.GameRepository.GetAllAsync()
+            };
+            return View(viewmodel);
         }
         
         public async Task<IActionResult> AddGame()
