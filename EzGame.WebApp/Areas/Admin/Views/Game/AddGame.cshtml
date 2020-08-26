@@ -3,33 +3,34 @@
 @{
     ViewData["Title"] = "افزودن بازی";
 }
-    <style>
+<style>
 
-        #selectplatform li {
-            cursor: pointer;
-            margin-right: 5px;
-            display: inline-block;
-            background: darkgray;
-            color: white;
-            padding-top: 3px;
-            padding-bottom: 3px;
-            padding-left: 3%;
-            padding-right: 3%;
-            border-radius: 8px;
-        }
-        #selectGenre li {
-            cursor: pointer;
-            margin-right: 5px;
-            display: inline-block;
-            background: darkgray;
-            color: white;
-            padding-top: 3px;
-            padding-bottom: 3px;
-            padding-left: 3%;
-            padding-right: 3%;
-            border-radius: 8px;
-        }
-    </style>
+    #selectplatform li {
+        cursor: pointer;
+        margin-right: 5px;
+        display: inline-block;
+        background: darkgray;
+        color: white;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 3%;
+        padding-right: 3%;
+        border-radius: 8px;
+    }
+
+    #selectGenre li {
+        cursor: pointer;
+        margin-right: 5px;
+        display: inline-block;
+        background: darkgray;
+        color: white;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 3%;
+        padding-right: 3%;
+        border-radius: 8px;
+    }
+</style>
 
 <div class="row" style="background: white; margin-top: 10px;border-radius: 5px;
 ">
@@ -42,10 +43,11 @@
             <div class="form-group">
                 <div class="white-box">
                     <label for="">تصویر را انتخاب کنید</label>
-                     <input type="file" id="input-file-now" name="image" class="dropify" />
+                    <input type="file" id="input-file-now" name="image" class="dropify" />
                 </div>
                 <span asp-validation-for="ImageName" class="text-danger"></span>
             </div>
+            <div class="form-row">
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 ">
                         <h5 class="m-t-30 m-b-10">انتخاب پلتفرم</h5>
@@ -59,8 +61,8 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 CreatPlatform">
-                            <ul id="selectplatform" style="display:contents">
-                            </ul>
+                        <ul id="selectplatform" style="display:contents">
+                        </ul>
                     </div>
                 </div>
                 <div class="form-group">
@@ -80,9 +82,10 @@
                         </ul>
                     </div>
                 </div>
+            </div>
             <div class="form-group">
                 <label class="control-label">نام بازی</label>
-                <input asp-for="Title" class="form-control"/>
+                <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -91,27 +94,27 @@
                 <span asp-validation-for="Explanation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label  class="control-label">متن</label>
+                <label class="control-label">متن</label>
                 <textarea class="form-control text-box multi-line" data-val="true" asp-for="Summary"></textarea>
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label  class="control-label">تعداد بازی</label>
-                <input asp-for="Count" class="form-control"/>
+                <label class="control-label">تعداد بازی</label>
+                <input asp-for="Count" class="form-control" />
                 <span asp-validation-for="Count" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ComingSoon"/> بزودی
+                    <input class="form-check-input" asp-for="ComingSoon" /> بزودی
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="افزودن" class="btn btn-primary" style="width:100%"/>
+                <input type="submit" value="افزودن" class="btn btn-primary" style="width:100%" />
             </div>
         </form>
     </div>
 </div>
-@section Scripts{ 
+@section Scripts{
     <script type="text/javascript">
 
         function getaPlatformName(obj) {
@@ -138,7 +141,7 @@
             html += '<p>' + item + '</p>'
             html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Ganre[' + el + '].Title"  id="number" value="' + item + '" />'
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + el + '].،itle"  id="number" value="' + item + '" />'
             $("#selectGenre").append(html);
             document.getElementById("intt").setAttribute("attr", el += 1);
         }
