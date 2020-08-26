@@ -47,7 +47,7 @@
                 </div>
                 <span asp-validation-for="ImageName" class="text-danger"></span>
             </div>
-            <div class="form-row">
+            <div class="form-row" style="display:grid">
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 ">
                         <h5 class="m-t-30 m-b-10">انتخاب پلتفرم</h5>
@@ -118,6 +118,7 @@
     <script type="text/javascript">
 
         function getaPlatformName(obj) {
+            debugger;
             var s = document.getElementById("int").getAttribute("attr");
             el = parseInt(s);
             var item = $("#PlatformAdd").val();
@@ -132,6 +133,7 @@
             document.getElementById("int").setAttribute("attr", el += 1);
         }
         function getaGenreName(obj) {
+            debugger;
             var s = document.getElementById("intt").getAttribute("attr");
             el = parseInt(s);
             var item = $("#GenreAdd").val();
@@ -141,7 +143,7 @@
             html += '<p>' + item + '</p>'
             html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + el + '].،itle"  id="number" value="' + item + '" />'
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + el + '].Title"  id="number" value="' + item + '" />'
             $("#selectGenre").append(html);
             document.getElementById("intt").setAttribute("attr", el += 1);
         }
