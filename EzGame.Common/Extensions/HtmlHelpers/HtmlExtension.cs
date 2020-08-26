@@ -15,7 +15,7 @@ namespace EzGame.Common.Extensions.HtmlHelpers
         public static string IsActive(this IHtmlHelper htmlHelper, string controller)
         {
             var routeData = htmlHelper.ViewContext.RouteData;
-
+            
             var routeController = routeData.Values["controller"].ToString();
 
             var returnActive = (controller == routeController);
@@ -50,15 +50,10 @@ namespace EzGame.Common.Extensions.HtmlHelpers
             return "";
         }
 
-        public static string IsOnPlatformCategories(this IHtmlHelper htmlHelper)
+        
+        public static string IsThisView(this IHtmlHelper htmlHelper,string url)
         {
-            var routeData = new HttpContextAccessor();
-
-            if (routeData.HttpContext.GetRouteValue("title") == null)
-            {
-                return "active";
-            }
-            return "";
+            return htmlHelper.ViewContext.View.Path.ToLower() == url ? "active" : "";
         }
     }
 }
