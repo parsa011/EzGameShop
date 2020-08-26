@@ -23,6 +23,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            
             var getAll = await _db.PlatformRepository.GetAllAsync(a=>!a.IsDeleted);
             return View(getAll);
         }
