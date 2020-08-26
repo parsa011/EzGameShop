@@ -24,7 +24,7 @@
                         {
                             <tr id="@item.Id">
                                 <td>
-                                    <img id="Image @item.Id" src="~/GameImages/@item.ImageName" alt="Alternate Text" width="70" />
+                                    <img id="Image-@item.Id" src="~/GameImages/@item.ImageName" alt="Alternate Text" width="70" />
                                 </td>
                                 <td id="Name-@item.Id">
                                     @item.Title
@@ -35,7 +35,7 @@
                                 <td id="Count @item.Id">
                                    @Model.GamePlatforms.Where(p => p.GameId == item.Id).Select(p => p.Platform.Title)
                                 </td>
-                                <td id="isActive @item.IsDeleted ">
+                                <td id="isActive-@item.IsDeleted ">
                                     @if (!item.IsDeleted)
                                     {
                                         <label>حذف نشده</label>

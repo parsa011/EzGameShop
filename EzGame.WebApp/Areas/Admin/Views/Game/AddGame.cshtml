@@ -3,7 +3,33 @@
 @{
     ViewData["Title"] = "افزودن بازی";
 }
+    <style>
 
+        #selectplatform li {
+            cursor: pointer;
+            margin-right: 5px;
+            display: inline-block;
+            background: darkgray;
+            color: white;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 3%;
+            padding-right: 3%;
+            border-radius: 8px;
+        }
+        #selectGenre li {
+            cursor: pointer;
+            margin-right: 5px;
+            display: inline-block;
+            background: darkgray;
+            color: white;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 3%;
+            padding-right: 3%;
+            border-radius: 8px;
+        }
+    </style>
 
 <div class="row" style="background: white; margin-top: 10px;border-radius: 5px;
 ">
@@ -18,52 +44,109 @@
                     <label for="">تصویر را انتخاب کنید</label>
                      <input type="file" id="input-file-now" name="image" class="dropify" />
                 </div>
-                <span asp-validation-for="Game.ImageName" class="text-danger"></span>
+                <span asp-validation-for="ImageName" class="text-danger"></span>
             </div>
-            <div>
                 <div class="form-group">
-                    <label  class="control-label">پلتفرم</label>
-                    <select asp-for="Platforms" class="form-control" multiple asp-items="ViewBag.Platforms">
-                        <option selected="">انتخاب کنید</option>
-                    </select>
-                    <span asp-validation-for="Platforms" class="text-danger"></span>
+                    <div class="col-md-6 col-sm-6 ">
+                        <h5 class="m-t-30 m-b-10">انتخاب پلتفرم</h5>
+                        <p id="int" attr="0" style="display:none"></p>
+                        <select onchange="getaPlatformName(this)" attrr="0" id="PlatformAdd" class="form-control PlatformAdd">
+                            <option>انتخاب کنید</option>
+                            @foreach (var item in Model.Platforms)
+                            {
+                                <option>@item.Title</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-sm-6 CreatPlatform">
+                            <ul id="selectplatform" style="display:contents">
+                            </ul>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label  class="control-label">ژانر</label>
-                    <select asp-for="Genres" class="form-control" multiple asp-items="ViewBag.Genres">
-                        <option selected="">انتخاب کنید</option>
-                    </select>
-                    <span asp-validation-for="Genres" class="text-danger"></span>
+                    <div class="col-md-6 col-sm-6">
+                        <h5 class="m-t-30 m-b-10">انتخاب ژانر</h5>
+                        <p id="intt" attr="0" style="display:none"></p>
+                        <select onchange="getaGenreName(this)" attrr="0" id="GenreAdd" class="form-control GenreAdd">
+                            <option>انتخاب کنید</option>
+                            @foreach (var item in Model.Genres)
+                            {
+                                <option>@item.Title</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-sm-6 GenrePlatform">
+                        <ul id="selectGenre" style="display:contents">
+                        </ul>
+                    </div>
                 </div>
-            </div>
             <div class="form-group">
                 <label class="control-label">نام بازی</label>
-                <input asp-for="Game.Title" class="form-control"/>
-                <span asp-validation-for="Game.Title" class="text-danger"></span>
+                <input asp-for="Title" class="form-control"/>
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label"> توضیح کوتاه</label>
-                <input asp-for="Game.Explanation" class="form-control" />
-                <span asp-validation-for="Game.Explanation" class="text-danger"></span>
+                <input asp-for="Explanation" class="form-control" />
+                <span asp-validation-for="Explanation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label  class="control-label">متن</label>
-                <textarea class="form-control text-box multi-line" data-val="true" asp-for="Game.Summary"></textarea>
-                <span asp-validation-for="Game.Summary" class="text-danger"></span>
+                <textarea class="form-control text-box multi-line" data-val="true" asp-for="Summary"></textarea>
+                <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label  class="control-label">تعداد بازی</label>
-                <input asp-for="Game.Count" class="form-control"/>
-                <span asp-validation-for="Game.Count" class="text-danger"></span>
+                <input asp-for="Count" class="form-control"/>
+                <span asp-validation-for="Count" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Game.ComingSoon"/> بزودی
+                    <input class="form-check-input" asp-for="ComingSoon"/> بزودی
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" style="width:100%"/>
+                <input type="submit" value="افزودن" class="btn btn-primary" style="width:100%"/>
             </div>
         </form>
     </div>
 </div>
+@section Scripts{ 
+    <script type="text/javascript">
+
+        function getaPlatformName(obj) {
+            var s = document.getElementById("int").getAttribute("attr");
+            el = parseInt(s);
+            var item = $("#PlatformAdd").val();
+
+            var item = $("#PlatformAdd").val();
+            var html = '<li onclick="RemovePlatform(this)">'
+            html += '<p>' + item + '</p>'
+            html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
+            html += '</li>'
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + el + '].Title"  id="number" value="' + item + '" />'
+            $("#selectplatform").append(html);
+            document.getElementById("int").setAttribute("attr", el += 1);
+        }
+        function getaGenreName(obj) {
+            var s = document.getElementById("intt").getAttribute("attr");
+            el = parseInt(s);
+            var item = $("#GenreAdd").val();
+
+            var item = $("#GenreAdd").val();
+            var html = '<li onclick="RemoveGenere(this)">'
+            html += '<p>' + item + '</p>'
+            html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
+            html += '</li>'
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Ganre[' + el + '].Title"  id="number" value="' + item + '" />'
+            $("#selectGenre").append(html);
+            document.getElementById("intt").setAttribute("attr", el += 1);
+        }
+        function RemovePlatform(obj) {
+            obj.remove();
+        }
+        function RemoveGenere(obj) {
+            obj.remove();
+        }
+    </script>
+}

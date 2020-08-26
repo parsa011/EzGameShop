@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Common.ViewModel.Games;
 using EzGame.Data.Interfaces;
@@ -9,6 +10,7 @@ using EzGame.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NToastNotify;
 
@@ -56,9 +58,12 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AddGame()
         {
-            await FillGenresViewBag();
-            await FillPlatformsViewBag();
-            return View();
+            var viewmodel = new GameCreateViewModel()
+            {
+                Platforms = await _db.PlatformRepository.GetAllAsync(a=>!a.IsDeleted),
+                Genres = await _db.GenreRepository.GetAllAsync(a => !a.IsDeleted),
+            };
+            return View(viewmodel);
         }
 
         [HttpPost]
@@ -73,14 +78,25 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 return View(model);
             }
             
-            model.Game.ImageName = await _fileManager.UploadImage(image, FileManagerType.FileType.GameImage);
-            
+            model.ImageName = await _fileManager.UploadImage(image, FileManagerType.FileType.GameImage);
+            var game = new Game()
+            {
+                ImageName = model.ImageName,
+                IsDeleted = false,
+                Count = model.Count,
+                Explanation = model.Explanation,
+                Summary = model.Summary,
+                Title = model.Title,
+                ComingSoon = model.ComingSoon,
+                CreatedTime = DateTime.Now,
+                LastModifiedTime = DateTime.Now,
+            };
             foreach (var item in model.Genres)
             {
                 await _db.GameGenreRepository.InsertAsync(new GameGenre()
                 {
-                    Game = model.Game,
-                    GameId = model.Game.Id,
+                    Game=game,
+                    GameId = model.Id,
                     GenreId = item.Id
                 });
             }
@@ -88,14 +104,14 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             {
                 await _db.GamePlatformRepository.InsertAsync(new GamePlatform()
                 {
-                    Game = model.Game,
-                    GameId = model.Game.Id,
+                    Game = game,
+                    GameId = model.Id,
                     PlatformId = item.Id
                 });
             }
-            await _db.GameRepository.InsertAsync(model.Game);
+            await _db.GameRepository.InsertAsync(game);
             await _db.SaveChangeAsync();
-            _notification.AddSuccessToastMessage($"بازی {model.Game.Title} با موفقیت ثبت شد");
+            _notification.AddSuccessToastMessage($"بازی {game.Title} با موفقیت ثبت شد");
             return RedirectToAction(nameof(Index));
         }
     }
