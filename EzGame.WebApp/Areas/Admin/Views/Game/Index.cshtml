@@ -22,20 +22,20 @@
                     <tbody id="group-list">
                         @foreach (var item in Model.Games)
                         {
-                            <tr id="list @item.Id">
+                            <tr id="@item.Id">
                                 <td>
-                                    <img id="Image @item.Id" src="@item.ImageName" alt="Alternate Text" width="36" />
+                                    <img id="Image-@item.Id" src="@item.ImageName" alt="Alternate Text" width="36" />
                                 </td>
-                                <td id="Name @item.Id">
+                                <td id="Name-@item.Id">
                                     @item.Title
                                 </td>
-                                <td id="Count @item.Id">
+                                <td id="Count-@item.Id">
                                     @item.Count
                                 </td>
-                                <td id="Count @item.Id">
+                                <td id="Count-@item.Id">
                                    @Model.gamePlatforms.Where(p => p.GameId == item.Id).Select(p => p.Platform.Title)
                                 </td>
-                                <td id="isActive @item.IsDeleted ">
+                                <td id="isActive-@item.IsDeleted ">
                                     @if (item.IsDeleted == false)
                                     {
                                         <label>حذف نشده</label>

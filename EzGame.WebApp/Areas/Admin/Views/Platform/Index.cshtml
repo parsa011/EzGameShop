@@ -21,15 +21,15 @@
                     <tbody id="group-list">
                     @foreach (var item in Model)
                     {
-                        <tr id="list @item.Id">
+                        <tr id="@item.Id">
                             <td class="text-center">@item.Id</td>
                             <td>
-                                <img id="Logo @item.Id" src="@item.Logo" alt="Alternate Text" width="36"/>
+                                <img id="Logo-@item.Id" src="@item.Logo" alt="Alternate Text" width="36"/>
                             </td>
-                            <td id="Name @item.Id">
+                            <td id="Name-@item.Id">
                                 @item.Title
                             </td>
-                            <td id="isActive @item.IsDeleted ">
+                            <td id="isActive-@item.IsDeleted ">
                                 @if (item.IsDeleted == false)
                                 {
                                     <label>حذف نشده</label>
@@ -146,13 +146,13 @@
                         $("#exampleModal").modal("hide");
                         if (result != null) {
                             debugger;
-                            var html = '<tr id="list ' + result.id + '">'
+                            var html = '<tr id="' + result.id + '">'
                             html += '<td class="text-center">' + result.id + '</td>'
                             html += '<td>'
-                            html += '<img id="Logo ' + result.id + '" src="' + result.logo + '" alt="Alternate Text"  width="36" />'
+                            html += '<img id="Logo-' + result.id + '" src="' + result.logo + '" alt="Alternate Text"  width="36" />'
                             html += '</td>'
-                            html += '<td id="Name ' + result.id + '">' + platformTitle + '</td>'
-                            html += '<td id="isActive ' + result.id + '">'
+                            html += '<td id="Name-' + result.id + '">' + platformTitle + '</td>'
+                            html += '<td id="isActive-' + result.id + '">'
                             html += '' + result.isDeleted== true?"حذف شده":"حذف نشده" + ''
                             html += '</td>'
                             html += '<td>'
@@ -179,13 +179,13 @@
                     success: function (result) {
                         $("#exampleModal2").modal("hide");
                         if (result != null) {
-                            document.getElementById("Name " + result.id).innerHTML = result.title;
-                            var logo = document.getElementById("Logo " + result.id).getAttribute("src");
+                            document.getElementById("Name-" + result.id).innerHTML = result.title;
+                            var logo = document.getElementById("Logo-" + result.id).getAttribute("src");
                             logo = result.logo;
                             if (result.isDeleted == true) {
-                                document.getElementById("isActive " + result.id).innerHTML = "حذف شده";
+                                document.getElementById("isActive-" + result.id).innerHTML = "حذف شده";
                             } else {
-                                document.getElementById("isActive " + result.id).innerHTML = "حذف نشده";
+                                document.getElementById("isActive-" + result.id).innerHTML = "حذف نشده";
 
                             }
                         }
@@ -204,9 +204,8 @@
                     success: function (result) {
                         $("#exampleModal3").modal("hide");
                         if (result != null) {
-                            document.getElementById("list " + result.id).remove();
-                        } else {
-                            
+                            debugger;
+                            $("tr#" + result.id).remove();
                         }
                     }
 
