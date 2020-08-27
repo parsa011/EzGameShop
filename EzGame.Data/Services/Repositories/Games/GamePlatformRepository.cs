@@ -57,17 +57,17 @@ namespace EzGame.Data.Services.Repositories.Games
 
         public IEnumerable<GamePlatform> GetAll()
         {
-            return _db.GamePlatforms.AsEnumerable();
+            return _db.GamePlatforms.Include(p => p.Platform).AsEnumerable();
         }
 
         public async Task<IEnumerable<GamePlatform>> GetAllAsync()
         {
-            return await _db.GamePlatforms.ToListAsync();
+            return await _db.GamePlatforms.Include(p=>p.Platform).ToListAsync();
         }
 
         public async Task<ICollection<GamePlatform>> GetAllAsync(Expression<Func<GamePlatform, bool>> match)
         {
-            return await _db.GamePlatforms.Where(match).ToListAsync();
+            return await _db.GamePlatforms.Where(match).Include(p => p.Platform).ToListAsync();
         }
 
         public async Task<GamePlatform> GetAsync(Expression<Func<GamePlatform, bool>> where)
