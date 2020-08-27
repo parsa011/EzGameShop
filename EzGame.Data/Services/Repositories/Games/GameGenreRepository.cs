@@ -57,12 +57,12 @@ namespace EzGame.Data.Services.Repositories.Games
 
         public IEnumerable<GameGenre> GetAll()
         {
-            return _db.GameGenres.AsEnumerable();
+            return _db.GameGenres.Include(a => a.Genre).AsEnumerable();
         }
 
         public async Task<IEnumerable<GameGenre>> GetAllAsync()
         {
-            return await _db.GameGenres.ToListAsync();
+            return await _db.GameGenres.Include(a => a.Genre).ToListAsync();
         }
 
         public async Task<ICollection<GameGenre>> GetAllAsync(Expression<Func<GameGenre, bool>> match)

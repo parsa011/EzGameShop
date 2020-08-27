@@ -19,6 +19,10 @@
     }
 
 </style>
+@{ 
+    var platformCount = 0;
+    var GenreCount = 0;
+}
 
 <div class="row" style="background: white; margin-top: 10px;border-radius: 5px;">
     <div class="text-center">
@@ -29,7 +33,11 @@
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+<<<<<<< HEAD
                 <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" width="200" heigth="200" />
+=======
+                <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" style="width:31%" />
+>>>>>>> 0ac06a234f922913fdb04526be8a4274324de3ae
                 <div class="white-box">
                     <label for="">تصویر را انتخاب کنید</label>
                     <input type="file" id="input-file-now" name="image" class="dropify" />
@@ -51,6 +59,16 @@
                     </div>
                     <div class="col-md-6 col-sm-6 CreatPlatform">
                         <ul id="selectplatform" class="selectResult" style="display:contents">
+                            @foreach (var item in ViewBag.GamePlatform)
+                            {
+                                <li onclick="RemoveGenere(this)">
+                                    
+                                    <p>@item.Platform.Title</p>
+                                   <span style="margin-right:4px;cursor:pointer"> <i class="fa fa-remove"></i></span>
+                                </li>
+                               <input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[@platformCount].Title"  id="number" value="' + item + '" />  
+                                platformCount++;
+                            }
                         </ul>
                     </div>
                 </div>
@@ -67,7 +85,18 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 GenrePlatform">
-                        <ul id="selectGenre" class="selectResult"  style="display:contents">
+                        <ul id="selectGenre" class="selectResult" style="display:contents">
+                            @foreach (var item in ViewBag.GameGenre)
+                            {
+                                <li onclick="RemoveGenere(this)">
+
+                                    <p>@item.Genre.Title</p>
+                                    <span style="margin-right:4px;cursor:pointer"> <i class="fa fa-remove"></i></span>
+                                </li>
+                                <input type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[@GenreCount].Title" id="number" value="' + item + '" />
+
+                                GenreCount++;
+                            }
                         </ul>
                     </div>
                 </div>
@@ -105,24 +134,22 @@
 </div>
 @section Scripts{
     <script type="text/javascript">
-
+        var platformsCount =@platformCount;
+        var GenresCount=@GenreCount;
         function getaPlatformName(obj) {
-            var s = document.getElementById("int").getAttribute("attr");
-            el = parseInt(s);
+            
             var item = $("#PlatformAdd").val();
-
             var item = $("#PlatformAdd").val();
             var html = '<li onclick="RemovePlatform(this)">'
             html += '<p>' + item + '</p>'
             html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + el + '].Title"  id="number" value="' + item + '" />'
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Title"  id="number" value="' + item + '" />'
             $("#selectplatform").append(html);
-            document.getElementById("int").setAttribute("attr", el += 1);
+            platformsCount+=1;
         }
         function getaGenreName(obj) {
-            var s = document.getElementById("intt").getAttribute("attr");
-            el = parseInt(s);
+            debugger;
             var item = $("#GenreAdd").val();
 
             var item = $("#GenreAdd").val();
@@ -130,9 +157,9 @@
             html += '<p>' + item + '</p>'
             html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + el + '].Title"  id="number" value="' + item + '" />'
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + GenresCount + '].Title"  id="number" value="' + item + '" />'
             $("#selectGenre").append(html);
-            document.getElementById("intt").setAttribute("attr", el += 1);
+            GenresCount+=1;
         }
         function RemovePlatform(obj) {
             obj.remove();
