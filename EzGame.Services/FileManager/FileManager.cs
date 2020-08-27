@@ -16,7 +16,12 @@ namespace EzGame.Services.FileManager
             _webRootPath = webRootPath;
         }
 
-
+        /// <summary>
+        /// upload image with type
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="typeId"> type of the image that have to upload </param>
+        /// <returns> name of the image (without path :D) </returns>
         public async Task<string> UploadImage(IFormFile image, FileManagerType.FileType typeId)
         {
             var type = FileManagerType.ParseType(typeId);

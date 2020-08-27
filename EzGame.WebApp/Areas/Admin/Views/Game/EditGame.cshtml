@@ -29,7 +29,7 @@
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" style="width:100%" />
+                <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" width="200" heigth="200" />
                 <div class="white-box">
                     <label for="">تصویر را انتخاب کنید</label>
                     <input type="file" id="input-file-now" name="image" class="dropify" />
