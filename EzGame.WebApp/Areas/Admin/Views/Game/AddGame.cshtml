@@ -3,22 +3,6 @@
 @{
     ViewData["Title"] = "افزودن بازی";
 }
-<style>
-
-    .selectResult li {
-        cursor: pointer;
-        margin-right: 5px;
-        display: inline-block;
-        background: darkgray;
-        color: white;
-        padding-top: 3px;
-        padding-bottom: 3px;
-        padding-left: 3%;
-        padding-right: 3%;
-        border-radius: 8px;
-    }
-
-</style>
 
 <div class="row" style="background: white; margin-top: 10px;border-radius: 5px;">
     <div class="text-center">
@@ -48,7 +32,7 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 CreatPlatform">
-                        <ul id="selectplatform" class="selectResult" style="display:contents">
+                        <ul id="selectplatform" class="" style="display:contents">
                         </ul>
                     </div>
                 </div>
@@ -65,7 +49,7 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 GenrePlatform">
-                        <ul id="selectGenre" class="selectResult"  style="display:contents">
+                        <ul id="selectGenre" class=""  style="display:contents">
                         </ul>
                     </div>
                 </div>
@@ -113,9 +97,8 @@
             var item = $("#PlatformAdd").val();
 
             var item = $("#PlatformAdd").val();
-            var html = '<li onclick="RemovePlatform(this)">'
+            var html = '<li class="badge badge-info"  onclick="RemovePlatform(this)">'
             html += '<p>' + item + '</p>'
-            html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
             html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + el + '].Title"  id="number" value="' + item + '" />'
             $("#selectplatform").append(html);
@@ -127,9 +110,8 @@
             var item = $("#GenreAdd").val();
 
             var item = $("#GenreAdd").val();
-            var html = '<li onclick="RemoveGenere(this)">'
+            var html = '<li class="badge badge-info"  onclick="RemoveGenere(this)">'
             html += '<p>' + item + '</p>'
-            html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
             html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + el + '].Title"  id="number" value="' + item + '" />'
             $("#selectGenre").append(html);
