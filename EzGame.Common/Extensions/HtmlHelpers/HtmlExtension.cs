@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 
-namespace EzGame.Common.Extensions.HtmlHelpersP
+namespace EzGame.Common.Extensions.HtmlHelpers
 {
     public static class HtmlExtension
     {

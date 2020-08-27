@@ -3,22 +3,7 @@
 @{
     ViewData["Title"] = "افزودن بازی";
 }
-<style>
 
-    .selectResult li {
-        cursor: pointer;
-        margin-right: 5px;
-        display: inline-block;
-        background: darkgray;
-        color: white;
-        padding-top: 3px;
-        padding-bottom: 3px;
-        padding-left: 3%;
-        padding-right: 3%;
-        border-radius: 8px;
-    }
-
-</style>
 @{ 
     var platformCount = 0;
     var GenreCount = 0;
@@ -33,11 +18,9 @@
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-<<<<<<< HEAD
-                <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" width="200" heigth="200" />
-=======
+
                 <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" style="width:31%" />
->>>>>>> 0ac06a234f922913fdb04526be8a4274324de3ae
+
                 <div class="white-box">
                     <label for="">تصویر را انتخاب کنید</label>
                     <input type="file" id="input-file-now" name="image" class="dropify" />
@@ -58,13 +41,11 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 CreatPlatform">
-                        <ul id="selectplatform" class="selectResult" style="display:contents">
+                        <ul id="selectplatform" class="" style="display:contents">
                             @foreach (var item in ViewBag.GamePlatform)
                             {
-                                <li onclick="RemoveGenere(this)">
-                                    
+                                <li class="badge badge-info" onclick="RemoveGenere(this)">
                                     <p>@item.Platform.Title</p>
-                                   <span style="margin-right:4px;cursor:pointer"> <i class="fa fa-remove"></i></span>
                                 </li>
                                <input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[@platformCount].Title"  id="number" value="' + item + '" />  
                                 platformCount++;
@@ -88,13 +69,10 @@
                         <ul id="selectGenre" class="selectResult" style="display:contents">
                             @foreach (var item in ViewBag.GameGenre)
                             {
-                                <li onclick="RemoveGenere(this)">
-
+                                <li class="badge badge-info" onclick="RemoveGenere(this)">
                                     <p>@item.Genre.Title</p>
-                                    <span style="margin-right:4px;cursor:pointer"> <i class="fa fa-remove"></i></span>
                                 </li>
                                 <input type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[@GenreCount].Title" id="number" value="' + item + '" />
-
                                 GenreCount++;
                             }
                         </ul>
@@ -113,7 +91,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">متن</label>
-                <textarea class="form-control text-box multi-line" data-val="true" asp-for="Summary"></textarea>
+                <textarea class="form-control text-box multi-line ckEditor" data-val="true" asp-for="Summary"></textarea>
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -132,30 +110,29 @@
         </form>
     </div>
 </div>
+
+
 @section Scripts{
+    @Html.RenderPartialAsync("_CkEditorPartial")
     <script type="text/javascript">
         var platformsCount =@platformCount;
         var GenresCount=@GenreCount;
         function getaPlatformName(obj) {
-            
             var item = $("#PlatformAdd").val();
             var item = $("#PlatformAdd").val();
-            var html = '<li onclick="RemovePlatform(this)">'
+            var html = '<li class="badge badge-info" onclick="RemovePlatform(this)">'
             html += '<p>' + item + '</p>'
-            html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
             html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Title"  id="number" value="' + item + '" />'
             $("#selectplatform").append(html);
             platformsCount+=1;
         }
         function getaGenreName(obj) {
-            debugger;
             var item = $("#GenreAdd").val();
 
             var item = $("#GenreAdd").val();
-            var html = '<li onclick="RemoveGenere(this)">'
+            var html = '<li class="badge badge-info" onclick="RemoveGenere(this)">'
             html += '<p>' + item + '</p>'
-            html += '<span style = "margin-right:4px;cursor:pointer" > <i class="fa fa-remove"></i></span>'
             html += '</li>'
             html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + GenresCount + '].Title"  id="number" value="' + item + '" />'
             $("#selectGenre").append(html);

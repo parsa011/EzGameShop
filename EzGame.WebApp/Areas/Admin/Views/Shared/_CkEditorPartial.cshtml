@@ -1,0 +1,11 @@
+﻿<script src="~/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    var config = {
+        codeSnippet_theme: 'monokai_sublime',
+    };
+    var ck = document.querySelector(".ckEditor");
+    CKEDITOR.replace(ck,config);
+
+    CKEDITOR.config.language = 'fa';
+    CKEDITOR.config.filebrowserImageUploadUrl = '/Admin/Documents/UploadCkEditorImage';
+</script>

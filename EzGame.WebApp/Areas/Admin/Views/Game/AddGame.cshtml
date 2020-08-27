@@ -82,7 +82,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">متن</label>
-                <textarea class="form-control text-box multi-line" data-val="true" asp-for="Summary"></textarea>
+                <textarea class="form-control text-box multi-line ckEditor" data-val="true" asp-for="Summary"></textarea>
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -101,7 +101,10 @@
         </form>
     </div>
 </div>
+
+
 @section Scripts{
+      @Html.RenderPartialAsync("_CkEditorPartial")
     <script type="text/javascript">
 
         function getaPlatformName(obj) {
