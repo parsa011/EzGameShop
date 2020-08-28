@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EzGame.Common.ViewModel.Settings;
 using EzGame.Data.Context;
 using EzGame.Data.Interfaces;
 using EzGame.Data.UnitOfWork;
+using EzGame.IOC.IdentityConfig;
 using EzGame.IOC.NotificationConfig;
-using EzGame.Services.FileManager;
-using EzGame.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +25,7 @@ namespace EzGame.WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<SiteSettings>(Configuration.GetSection(nameof(SiteSettings)));
             services.AddControllersWithViews().AddToastWithOptions();
             services.AddDbContext<DatabaseContext>(options =>
             {
@@ -37,6 +33,12 @@ namespace EzGame.WebApp
             });
             services.AddScoped<DatabaseContext, DatabaseContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddCustomIdentityServices();
+            // services.AddAuthentication().AddGoogle(options =>
+            //     {
+            //         options.ClientId = Configuration.GetSection("Google").GetSection("ClientId").Value;
+            //         options.ClientSecret = Configuration.GetSection("Google").GetSection("ClientSecret").Value;
+            //     });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,9 +51,7 @@ namespace EzGame.WebApp
 
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-    
+            app.UseCustomIdentityServices();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "areas",
