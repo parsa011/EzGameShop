@@ -1,0 +1,62 @@
+﻿@model GameAddGameEditionViewModel
+
+@{
+    ViewData["Title"] = "AddGameEdition";
+}
+
+<div class="row bg-white p-10" style="border-radius:4px;margin-top:10px">
+    <div class="col-md-4">
+        <form asp-action="AddGameEdition" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="gameId" value="@ViewBag.gameId" />
+            <div id="form">
+                <div class="form-group">
+                    <label class="control-label">نسخه بازی </label>
+                    <input name="gameEditions[0].Title" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">مبلغ</label>
+                    <input name="gameEditions[0].Price"  onkeyup="Showbtn(this)" type="number" class="form-control" />
+                    <div class="Addbtn" style="display:none">
+                        <a onclick="AddInput(this)" attr="0" class="btn btn-danger">نسخه دیگر</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="افزودن" class="btn btn-primary w-100" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{ 
+<script type="text/javascript">
+
+    function Showbtn(obj) {
+        if (obj.value == "") {
+            $(".Addbtn").css("display", "none");
+        } else {
+            $(".Addbtn").css("display", "block");
+        }
+    }
+    function AddInput(obj) {
+        debugger;
+        var attr = obj.getAttribute("attr");
+        getattr = parseInt(attr);
+        getattr += 1;
+        var n = getattr.toString();
+        obj.setAttribute("attr", n);
+       var html='<div class="form-group">'
+        html+='<label class="control-label">نسخه بازی دیگر </label>'
+        html += '<input name="gameEditions[' + getattr + '].Title" onkeyup="Showbtn(this)" class="form-control" />'
+        html += '</div>'
+        html +='<div class="form-group">'
+        html +='<label class="control-label">مبلغ این نسخه</label>'
+        html += '<input name="gameEditions[' + getattr+'].Price" type="number" class="form-control" />'
+        html +='</div>'
+        $("#form").append(html);
+    }
+</script>
+}

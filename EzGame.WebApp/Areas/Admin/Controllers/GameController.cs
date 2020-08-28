@@ -113,7 +113,8 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             await _db.GameRepository.InsertAsync(game);
             await _db.SaveChangeAsync();
             _notification.AddSuccessToastMessage($"بازی {game.Title} با موفقیت ثبت شد");
-            return RedirectToAction(nameof(Index));
+            TempData["GameId"] = game.Id;
+            return RedirectToAction("AddGameEdition");
         }
 
         [HttpGet]
@@ -231,6 +232,41 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             }
             _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
             return Json(null);
+        }
+
+        //Get
+        [HttpGet]
+        public ActionResult AddGameEdition()
+        {
+            ViewBag.gameId = TempData["GameId"];
+            return View();
+        }
+       
+        [HttpPost]
+        public async Task<ActionResult> AddGameEdition(GameAddGameEditionViewModel model,string gameId)
+        {
+
+            if (string.IsNullOrEmpty(gameId) ||!model.gameEditions.Any())
+            {
+                _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
+                return View(model);
+            }
+            foreach (var item in model.gameEditions)
+            {
+               
+                var gameEdition = new GameEdition()
+                {
+                    GameId = gameId,
+                    IsDeleted = false,
+                    Price = item.Price,
+                    Title = item.Title,
+                    CreatedTime = DateTime.Now,
+                    LastModifiedTime = DateTime.Now
+                };
+               await _db.GameEditionRepository.InsertAsync(gameEdition);
+            }
+            _db.SaveChange();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
