@@ -10,14 +10,14 @@ namespace EzGame.WebApp.Contorllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
+        //private readonly UserManager<IdentityUser> _userManager;
+        //private readonly SignInManager<IdentityUser> _signInManager;
+        //public AccountController(UserManager<IdentityUser> userManager,
+        //    SignInManager<IdentityUser> signInManager)
+        //{
+        //    _userManager = userManager;
+        //    _signInManager = signInManager;
+        //}
         //Get 
         [HttpGet]
         public ActionResult Register()
@@ -54,7 +54,7 @@ namespace EzGame.WebApp.Contorllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOut()
         {
-            await _signInManager.SignOutAsync();
+            //await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
 
         }
