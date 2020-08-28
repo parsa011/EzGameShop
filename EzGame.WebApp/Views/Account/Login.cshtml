@@ -32,4 +32,14 @@
             <button type="submit" class="btn btn-primary btn-block text-white btn-login">ورود</a>
         </div>
     </form>
+     @if (Model.ExternalsLogin.Count != 0)
+        {
+            <hr>
+            <form asp-action="ExternalLogin" asp-controller="account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                @foreach (var item in Model.ExternalsLogin)
+                {
+                    <button value="@item.Name" type="submit" name="provider" class="btn btn-danger btn-block mt-2 border-4">ورود با @item.DisplayName</button>
+                }
+            </form>
+        }
 </div>

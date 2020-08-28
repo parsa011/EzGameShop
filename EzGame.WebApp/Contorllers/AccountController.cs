@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EzGame.Common.ViewModel.Account;
@@ -107,9 +108,14 @@ namespace EzGame.WebApp.Contorllers
         }
 
         [HttpGet]
-        public ActionResult Login(string returnUrl)
+        public async Task<IActionResult> Login(string returnUrl)
         {
-            return View();
+            var model = new AccountLoginViewModel()
+            {
+                ReturnUrl = returnUrl,
+                ExternalsLogin = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -153,7 +159,7 @@ namespace EzGame.WebApp.Contorllers
         [HttpPost]
         public IActionResult ExternalLogin(string provider, string returnUrl)
         {
-            var redirect = Url.Action("ExternalLoginCallBack", "Auth", new { returnUrl });
+            var redirect = Url.Action("ExternalLoginCallBack", "Account", new { returnUrl });
             var props = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirect);
             return new ChallengeResult(provider, props);
         }
