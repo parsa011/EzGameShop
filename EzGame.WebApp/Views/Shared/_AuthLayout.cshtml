@@ -67,9 +67,9 @@
 <script src="~/SiteTemplate/assets/js/vendor/nouislider.min.js"></script>
 <!-- main js---------------------------------------------------->
 <script src="~/SiteTemplate/assets/js/main.js"></script>
-
-
-<link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Sweetalert2/sweetalert2.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+@await RenderSectionAsync("Scripts", false)
+@await Component.InvokeAsync("NToastNotify")
 
 </html>

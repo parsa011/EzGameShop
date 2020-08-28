@@ -1,26 +1,33 @@
-﻿@{
+﻿@model AccountRegisterViewModel
+@{
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
     ViewBag.Title = "ثبت نام";
     ViewBag.Mode = "reg";
 }
 <div class="account-box-content">
     <h4>ثبت نام</h4>
-    <form method="post" class="form-account text-right">
+    <form action="/Account/Register" method="post" class="form-account text-right">
+       <div asp-validation-summary="ModelOnly"></div>
+       @Html.AntiForgeryToken()
         <div class="form-account-title">
             <label for="email-phone">نام نام خانوادگی</label>
-            <input type="text" class="number-email-input" id="FullName">
+            <input asp-for="UserName" type="text" class="number-email-input" id="FullName">
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="email-phone">ایمیل </label>
-            <input type="email" class="number-email-input" id="Email">
+            <input asp-for="Email" type="email" class="number-email-input" id="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="password">رمز عبور</label>
-            <input type="password" class="password-input" id="Password">
+            <input asp-for="Password" type="password" class="password-input" id="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="password">تکرار رمز عبور</label>
-            <input type="password" class="password-input" id="RePassword">
+            <input asp-for="ConfirmPassword" type="password" class="password-input" id="RePassword">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
         <div class="form-auth-row">
             <label for="#" class="ui-checkbox mt-1">

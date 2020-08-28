@@ -373,6 +373,8 @@
     <script src="~/SiteTemplate/assets/js/vendor/jquery.nice-select.min.js"></script>
     <!-- main js---------------------------------------------------->
     <script src="~/SiteTemplate/assets/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", false)
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 <!-- file js---------------------------------------------------->
 

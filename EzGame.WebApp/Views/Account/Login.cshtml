@@ -1,29 +1,35 @@
-﻿@{
+﻿@model AccountLoginViewModel
+@{
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
     ViewBag.Title = "ثبت نام";
     ViewBag.Mode = "login";
 }
 <div class="account-box-content">
     <h4>ورود به حساب کاربری</h4>
-    <form class="form-account text-right">
+    <form action="/Account/Login" method="POST" class="form-account text-right">
+        <div asp-validation-summary="ModelOnly"></div>
+        @Html.AntiForgeryToken()
         <div class="form-account-title">
             <label for="email-phone">ایمیل </label>
-            <input type="text" class="number-email-input" id="Email" name="email-account">
+            <input asp-for="Email" type="text" class="number-email-input" id="Email" name="email-account">
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="password">رمز عبور</label>
             <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
-            <input type="password" class="password-input" id="Password">
+            <input asp-for="Password" type="password" class="password-input" id="Password">
+             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-auth-row">
             <label for="#" class="ui-checkbox mt-1">
-                <input type="checkbox" value="1" name="login" id="remember">
+                <input asp-for="RememberMe" type="checkbox" value="1" name="login" id="remember">
                 <span class="ui-checkbox-check"></span>
             </label>
             <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
+             <span asp-validation-for="RememberMe" class="text-danger"></span>
         </div>
         <div class="form-row-account">
-            <button type="submit" class="btn btn-primary btn-block text-white btn-login">ورود </a>
+            <button type="submit" class="btn btn-primary btn-block text-white btn-login">ورود</a>
         </div>
     </form>
 </div>
