@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using EzGame.Common.ViewModel.Account;
+using EzGame.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +8,14 @@ namespace EzGame.WebApp.Contorllers
 {
     public class AccountController : Controller
     {
-        //private readonly UserManager<IdentityUser> _userManager;
-        //private readonly SignInManager<IdentityUser> _signInManager;
-        //public AccountController(UserManager<IdentityUser> userManager,
-        //    SignInManager<IdentityUser> signInManager)
-        //{
-        //    _userManager = userManager;
-        //    _signInManager = signInManager;
-        //}
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        public AccountController(UserManager<User> userManager,
+           SignInManager<User> signInManager)
+        {
+           _userManager = userManager;
+           _signInManager = signInManager;
+        }
         //Get 
         [HttpGet]
         public ActionResult Register()
@@ -27,6 +25,7 @@ namespace EzGame.WebApp.Contorllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(AccountRegisterViewModel register)
         {
             return View(register);
@@ -39,9 +38,8 @@ namespace EzGame.WebApp.Contorllers
             return View();
         }
 
-
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(AccountLoginViewModel login, string returnUrl = null)
         {
           
@@ -51,10 +49,9 @@ namespace EzGame.WebApp.Contorllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOut()
         {
-            //await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
 
         }

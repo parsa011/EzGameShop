@@ -55,7 +55,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             };
             return View(viewmodel);
         }
-
+     
         [HttpGet]
         public async Task<IActionResult> AddGame()
         {
@@ -164,10 +164,10 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 {
                     _fileManager.DeleteImage(game.ImageName, FileManagerType.FileType.GameImage);
                     model.Image = await _fileManager.UploadImage(image,
-                        FileManagerType.FileType.GameImage);
+                        FileManagerType.FileType.GameImage);    
                 }
             }
-           
+            // TODO Hello :D
             await _db.GamePlatformRepository.DeleteAllRelations(game.Id);
             await _db.GameGenreRepository.DeleteAllRelations(game.Id);
             foreach (var item in model.Genres)
