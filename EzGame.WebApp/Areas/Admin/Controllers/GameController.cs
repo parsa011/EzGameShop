@@ -27,6 +27,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         {
             _db = db;
             _notification = notification;
+
             _fileManager = new FileManager(webHostEnvironment.WebRootPath);
         }
 
@@ -75,7 +76,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
                 return View(model);
             }
-
+            
             model.ImageName = await _fileManager.UploadImage(image, FileManagerType.FileType.GameImage);
             var game = new Game()
             {
@@ -147,7 +148,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditGame(GameCreateViewModel model, IFormFile image)
         {
-            if (!ModelState.IsValid || image == null || !model.Genres.Any() || !model.Platforms.Any())
+            if (!ModelState.IsValid || !model.Genres.Any() || !model.Platforms.Any())
             {
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
                 return View(model);
@@ -166,43 +167,28 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                         FileManagerType.FileType.GameImage);
                 }
             }
-            // اونایی ک نیاز بور رو گرفتم 
-            //اون gamID هایی ک برابر game .id هستن
-            var getExistPlatform = _db.GamePlatformRepository.Where(p => p.GameId == game.Id).ToList();
-            foreach (var item in model.Platforms)
-            {
-                // اینجا اون پلتفرم هایی ک برابر اون پلتفرم ها هستن رو گرفتم
-                // ولی ما باید اونایی ک مخالفش هستن رو بگیریم و پاک کنیم
-                var deleteplatform = getExistPlatform.Where(p => p.PlatformId == item.Id);
-
-                var platform = (await _db.PlatformRepository.GetAllAsync(a => a.Title == item.Title)).FirstOrDefault();
-                if ((await _db.GamePlatformRepository.GetAllAsync(a => a.GameId == game.Id && a.PlatformId == platform.Id)).Any())
-                    continue;
-                else
-                {
-                    await _db.GamePlatformRepository.InsertAsync(new GamePlatform
-                    {
-                        Game = game,
-                        GameId = game.Id,
-                        PlatformId = platform.Id
-                    });
-                }
-            }
+           
+            await _db.GamePlatformRepository.DeleteAllRelations(game.Id);
+            await _db.GameGenreRepository.DeleteAllRelations(game.Id);
             foreach (var item in model.Genres)
             {
-                var genre = (await _db.GenreRepository.GetAllAsync(a => a.Title == item.Title)).FirstOrDefault();
-                if ((await _db.GameGenreRepository.GetAllAsync(a => a.GameId == game.Id && a.GenreId == item.Id)).Any())
-                    continue;
-                else
+                await _db.GameGenreRepository.InsertAsync(new GameGenre()
                 {
-                    await _db.GameGenreRepository.InsertAsync(new GameGenre()
-                    {
-                        Game = game,
-                        GameId = game.Id,
-                        GenreId = genre.Id
-                    });
-                }
+                    Game = game,
+                    GameId = game.Id,
+                    GenreId = item.Id
+                });
             }
+            foreach (var item in model.Platforms)
+            {
+                await _db.GamePlatformRepository.InsertAsync(new GamePlatform()
+                {
+                    Game = game,
+                    GameId = game.Id,
+                    PlatformId = item.Id
+                });
+            }
+            
             game.Title = model.Title;
             game.ComingSoon = model.ComingSoon;
             game.Count = model.Count;

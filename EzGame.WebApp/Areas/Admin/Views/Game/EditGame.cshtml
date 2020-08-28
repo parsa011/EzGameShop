@@ -14,7 +14,7 @@
         <h2>افزودن بازی</h2>
     </div>
     <div class="col-md-4" style="width: 100%; padding: 27px;">
-        <form asp-action="AddGame" enctype="multipart/form-data">
+        <form asp-action="EditGame" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -36,7 +36,7 @@
                             <option>انتخاب کنید</option>
                             @foreach (var item in Model.Platforms)
                             {
-                                <option>@item.Title</option>
+                                <option value="@item.Id">@item.Title</option>
                             }
                         </select>
                     </div>
@@ -46,8 +46,8 @@
                             {
                                 <li class="badge badge-info" onclick="RemoveGenere(this)">
                                     <p>@item.Platform.Title</p>
+                                    <input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[@platformCount].Title" value="@item.Id" />  
                                 </li>
-                               <input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[@platformCount].Title"  id="number" value="' + item + '" />  
                                 platformCount++;
                             }
                         </ul>
@@ -61,7 +61,7 @@
                             <option>انتخاب کنید</option>
                             @foreach (var item in Model.Genres)
                             {
-                                <option>@item.Title</option>
+                                <option value="@item.Id">@item.Title</option>
                             }
                         </select>
                     </div>
@@ -70,9 +70,9 @@
                             @foreach (var item in ViewBag.GameGenre)
                             {
                                 <li class="badge badge-info" onclick="RemoveGenere(this)">
+                                    <input type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[@GenreCount].Id" value="@item.Id" />
                                     <p>@item.Genre.Title</p>
                                 </li>
-                                <input type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[@GenreCount].Title" id="number" value="' + item + '" />
                                 GenreCount++;
                             }
                         </ul>
@@ -119,22 +119,19 @@
         var GenresCount=@GenreCount;
         function getaPlatformName(obj) {
             var item = $("#PlatformAdd").val();
-            var item = $("#PlatformAdd").val();
-            var html = '<li class="badge badge-info" onclick="RemovePlatform(this)">'
-            html += '<p>' + item + '</p>'
-            html += '</li>'
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Title"  id="number" value="' + item + '" />'
+            var html = '<li class="badge badge-info" onclick="RemovePlatform(this)">';
+            html += '<p>' + item + '</p>';
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Id" value="' + item + '" />';
+            html += '</li>';
             $("#selectplatform").append(html);
             platformsCount+=1;
         }
         function getaGenreName(obj) {
             var item = $("#GenreAdd").val();
-
-            var item = $("#GenreAdd").val();
-            var html = '<li class="badge badge-info" onclick="RemoveGenere(this)">'
-            html += '<p>' + item + '</p>'
-            html += '</li>'
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + GenresCount + '].Title"  id="number" value="' + item + '" />'
+            var html = '<li class="badge badge-info" onclick="RemoveGenere(this)">';
+            html += '<p>' + item + '</p>';
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + GenresCount + '].Id" value="' + item + '" />';
+            html += '</li>';
             $("#selectGenre").append(html);
             GenresCount+=1;
         }

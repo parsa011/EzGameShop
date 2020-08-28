@@ -9,6 +9,7 @@ namespace EzGame.Data.Interfaces.Repositories.Games
 {
    public interface IGamePlatformRepository:IDisposable
     {
+        Task DeleteAllRelations(object id);
         void Insert(GamePlatform entity);
         IEnumerable<GamePlatform> Take(int count);
         void Update(GamePlatform entity);

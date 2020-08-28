@@ -27,6 +27,15 @@ namespace EzGame.Data.Services.Repositories.Games
             throw new NotImplementedException();
         }
 
+        public async Task DeleteAllRelations(object id)
+        {
+            var relations = await GetAllAsync(a=>a.GameId == id.ToString());
+            foreach (var item in relations)
+            {
+                Delete(item);
+            }
+        }
+
         public void Delete(object id)
         {
             var entity = GetById(id);
