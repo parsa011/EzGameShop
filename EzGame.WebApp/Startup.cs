@@ -34,11 +34,11 @@ namespace EzGame.WebApp
             services.AddScoped<DatabaseContext, DatabaseContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddCustomIdentityServices();
-            // services.AddAuthentication().AddGoogle(options =>
-            //     {
-            //         options.ClientId = Configuration.GetSection("Google").GetSection("ClientId").Value;
-            //         options.ClientSecret = Configuration.GetSection("Google").GetSection("ClientSecret").Value;
-            //     });
+            services.AddAuthentication().AddGoogle(options =>
+                {
+                    options.ClientId = Configuration.GetSection("Google").GetSection("ClientId").Value;
+                    options.ClientSecret = Configuration.GetSection("Google").GetSection("ClientSecret").Value;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
