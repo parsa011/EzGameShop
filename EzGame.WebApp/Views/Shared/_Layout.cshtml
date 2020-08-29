@@ -375,6 +375,9 @@
     <script src="~/SiteTemplate/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", false)
     @await Component.InvokeAsync("NToastNotify")
+    @{
+        await Html.RenderPartialAsync("_Patuv");
+    }
 </body>
 <!-- file js---------------------------------------------------->
 
