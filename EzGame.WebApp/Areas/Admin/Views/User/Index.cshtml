@@ -1,0 +1,43 @@
+﻿@model IEnumerable<User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">مدیریت کاربران <a style="float: left" data-toggle="modal" data-target="#Modal" href="javascript:void(0)" class="btn btn-primary btnCreate">افرودن ژانر</a></div>
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                        <tr>
+                            <th width="70" class="text-center">#</th>
+                            <th class="text-center">جیمیل</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-list">
+                        @foreach (var item in Model)
+                        {
+                            <tr id="@item.Id">
+                                <td class="text-center">@item.Id</td>
+                                <td id=" @item.Id" class="text-center">
+                                    @item.Email
+                                </td>
+                                <td>
+                                    <a type="button" asp-action="DeleteUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                    <a type="button" asp-action="EditUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

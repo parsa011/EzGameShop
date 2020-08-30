@@ -95,12 +95,10 @@
             var s = document.getElementById("int").getAttribute("attr");
             el = parseInt(s);
             var item = $("#PlatformAdd").val();
-
-            var item = $("#PlatformAdd").val();
             var html = '<li class="badge badge-info"  onclick="RemovePlatform(this)">'
             html += '<p>' + item + '</p>'
-            html += '</li>'
             html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + el + '].Title"  id="number" value="' + item + '" />'
+            html += '</li>'
             $("#selectplatform").append(html);
             document.getElementById("int").setAttribute("attr", el += 1);
         }
@@ -108,12 +106,10 @@
             var s = document.getElementById("intt").getAttribute("attr");
             el = parseInt(s);
             var item = $("#GenreAdd").val();
-
-            var item = $("#GenreAdd").val();
             var html = '<li class="badge badge-info"  onclick="RemoveGenere(this)">'
             html += '<p>' + item + '</p>'
-            html += '</li>'
             html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[' + el + '].Title"  id="number" value="' + item + '" />'
+            html += '</li>'
             $("#selectGenre").append(html);
             document.getElementById("intt").setAttribute("attr", el += 1);
         }
