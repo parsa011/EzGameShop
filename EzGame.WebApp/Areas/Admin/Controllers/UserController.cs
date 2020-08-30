@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Common.Filters.ActionFilters;
 using EzGame.Common.ViewModel.Account;
-using EzGame.Data.Interfaces;
+using EzGame.Common.ViewModel.Settings;
+using EzGame.Common.ViewModel.Users;
 using EzGame.Domain.Entities;
+using EzGame.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using MPS.Services.Services.Senders;
 using NToastNotify;
 
 namespace EzGame.WebApp.Areas.Admin.Controllers
@@ -15,13 +19,19 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class UserController : Controller
     {
-        private readonly IToastNotification _notification;
         private readonly UserManager<User> _userManager;
-
-        public UserController(IToastNotification notification, UserManager<User> userManager)
+        private readonly SignInManager<User> _signInManager;
+        private readonly IToastNotification _notification;
+        private readonly ILogger<UserController> _logger;
+        private readonly ISender _sender;
+        public UserController(UserManager<User> userManager,ILogger<UserController> logger,
+           SignInManager<User> signInManager,IToastNotification notification, IOptionsSnapshot<SiteSettings> emailSettings)
         {
-            _userManager = userManager;
-            _notification = notification;
+           _userManager = userManager;
+           _notification = notification;
+           _signInManager = signInManager;
+           _logger = logger;
+           _sender = new EmailSender(emailSettings);
         }
 
         //Get
@@ -33,72 +43,92 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IAsyncResult> EditUser(string id)
+        public async Task<IActionResult> EditUser(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 _notification.AddErrorToastMessage("کاربر پیدا نشد !");
-                return (IAsyncResult)RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
-            var getById = await _userManager.FindByIdAsync(id);
-            if (getById == null)
+            var user = (await _userManager.FindByIdAsync(id));
+            if (user == null)
             {
-                return (IAsyncResult)RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
-            return (IAsyncResult)View(getById);
+            return View(new UserEditViewModel{
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                userId = user.Id
+            });
         }
 
         [HttpPost]
-        public IAsyncResult EditUser(UserEditUserViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(UserEditViewModel model)
         {
             if (string.IsNullOrEmpty(model.userId))
             {
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
-                return (IAsyncResult)View(model);
+                return View(model);
             }
-            var user = _userManager.FindByIdAsync(model.userId);
+            var user = await _userManager.FindByIdAsync(model.userId);
             if (model.Password != null)
             {
-                // اینجا پسورد رو درست کن
-
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var resetPassResult = await _userManager.ResetPasswordAsync(user, token, model.Password);
+                if (!resetPassResult.Succeeded)
+                {
+                    SetErrors(resetPassResult);
+                    return View(model);
+                }
             }
 
-            user.Result.Email = model.Email;
-            user.Result.UserName = model.UserName;
-            user.Result.FirstName = model.FirstName;
-            user.Result.LastName = model.LastName;
-            _userManager.UpdateAsync(user.Result);
+            user.Email = model.Email;
+            user.UserName = model.UserName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            await _userManager.UpdateAsync(user);
 
-            return (IAsyncResult)RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
+        }
+
+        #region Helpers
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return Json(true);
+            }
+
+            return Json("ایمیل وارد شده از قبل موجود است");
         }
 
         [HttpPost]
-        [AjaxOnly]
-        public async Task<IActionResult> GetUserById(string id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IsUserNameInUse(string userName)
         {
-            if (!string.IsNullOrEmpty(id))
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
             {
-                var user = await _userManager.FindByIdAsync(id);
-                return Json(user);
+                return Json(true);
             }
-            _notification.AddErrorToastMessage("دوباره امتحان کنید");
-            return Json(null);
+
+            return Json("این نام کاربری از قبل موجود است");
         }
 
-        [HttpPost]
-        [AjaxOnly]
-        public async Task<IActionResult> DeleteUser(string id)
+        public void SetErrors(IdentityResult results)
         {
-            if (!string.IsNullOrEmpty(id))
+            foreach (var item in results.Errors)
             {
-                var user = await _userManager.FindByIdAsync(id);
-                user.IsDeleted = true;
-                await _userManager.UpdateAsync(user);
-                _notification.AddSuccessToastMessage($"پلتفرم {user.UserName} با موفقیت حذف شد.");
-                return Json(user);
+                ModelState.AddModelError("", item.Description);
             }
-            _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
-            return Json(null);
         }
+
+        #endregion
     }
 }
