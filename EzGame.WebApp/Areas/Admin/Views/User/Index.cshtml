@@ -7,11 +7,13 @@
 <div class="row" style="margin-top:10px">
     <div class="col-md-12">
         <div class="panel">
-           <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-hover manage-u-table">
                     <thead>
                         <tr>
                             <th width="70" class="text-center">#</th>
+                            <th class="text-center">نام کاربری</th>
+                            <th class="text-center">نام نام خانوادگی</th>
                             <th class="text-center">جیمیل</th>
                             <th width="300">مدیریت کردن</th>
                         </tr>
@@ -19,20 +21,30 @@
                     <tbody id="group-list">
                         @foreach (var item in Model)
                         {
-                            <tr id="@item.Id">
-                                <td class="text-center">@item.Id</td>
-                                <td id=" @item.Id" class="text-center">
-                                    @item.Email
-                                </td>
-                                <td>
-                                    <button type="button"  attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
-                                        <i class="ti-trash"></i>
-                                    </button>
-                                    <a type="button" asp-action="EditUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
-                                        <i class="ti-pencil-alt"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr id="@item.Id">
+                            <td class="text-center">@item.Id</td>
+                            <td class="text-center">@item.UserName</td>
+                            @if (item.LastName != null || item.FirstName != null)
+                            {
+                                <td class="text-center">@item.FirstName @item.LastName</td>
+
+                            }
+                            else
+                            {
+                                <td class="text-center">------------</td>
+                            }
+                            <td class="text-center">
+                                @item.Email
+                            </td>
+                            <td>
+                                <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                    <i class="ti-trash"></i>
+                                </button>
+                                <a type="button" asp-action="EditUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                    <i class="ti-pencil-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -66,7 +78,7 @@
                     url: "/Admin/User/DeleteUser",
                     data: { ID: id },
                     success: function (result) {
-                        $("#exampleModal3").modal("hide");
+                        $("#exampleModal").modal("hide");
                         if (result != null) {
                             $("tr#" + result.id).remove();
                         }
@@ -83,13 +95,14 @@
                 data: { id: attr },
                 success: function (result) {
                     if (result != null) {
-                        $("#exampleModal3").modal("show");
+                        debugger;
+                        $("#exampleModal").modal("show");
                         $("#DeleteID").val(result.id);
-                        document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.UserName + ' اطمینان دارید؟';
+                        document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.userName + ' اطمینان دارید؟';
                     }
                 }
             });
         }
     </script>
 
- }
+}

@@ -93,7 +93,34 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        [AjaxOnly]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                return Json(user);
+            }
+            _notification.AddErrorToastMessage("دوباره امتحان کنید");
+            return Json(null);
+        }
 
+        [HttpPost]
+        [AjaxOnly]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                user.IsDeleted = true;
+                await _userManager.UpdateAsync(user);
+                _notification.AddSuccessToastMessage($"پلتفرم {user.UserName} با موفقیت حذف شد.");
+                return Json(user);
+            }
+            _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
+            return Json(null);
+        }
         #region Helpers
         [HttpPost]
         [ValidateAntiForgeryToken]

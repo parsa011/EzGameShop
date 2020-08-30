@@ -31,5 +31,7 @@ namespace EzGame.Common.ViewModel.Users
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "گذرواژه و تکرار ان با هم یکسان نیستند")]
         public string ConfirmPassword { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

@@ -43,6 +43,10 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">ادمین</label>
+                <input asp-for="IsAdmin" class="form-control" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="ویرایش" class="btn btn-primary" />
                 <div>
                     <a asp-action="Index">بازگشت</a>
