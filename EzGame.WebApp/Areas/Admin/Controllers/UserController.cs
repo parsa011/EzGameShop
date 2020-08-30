@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EzGame.Common.Filters.ActionFilters;
 using EzGame.Common.ViewModel.Account;
 using EzGame.Data.Interfaces;
 using EzGame.Domain.Entities;
@@ -17,7 +18,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         private readonly IToastNotification _notification;
         private readonly UserManager<User> _userManager;
 
-        public UserController( IToastNotification notification,UserManager<User> userManager)
+        public UserController(IToastNotification notification, UserManager<User> userManager)
         {
             _userManager = userManager;
             _notification = notification;
@@ -27,7 +28,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var getAll =_userManager.Users.ToList();
+            var getAll = _userManager.Users.Where(a => !a.IsDeleted).ToList();
             return View(getAll);
         }
 
@@ -59,7 +60,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             if (model.Password != null)
             {
                 // اینجا پسورد رو درست کن
-             
+
             }
 
             user.Result.Email = model.Email;
@@ -71,5 +72,33 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             return (IAsyncResult)RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [AjaxOnly]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                return Json(user);
+            }
+            _notification.AddErrorToastMessage("دوباره امتحان کنید");
+            return Json(null);
+        }
+
+        [HttpPost]
+        [AjaxOnly]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                user.IsDeleted = true;
+                await _userManager.UpdateAsync(user);
+                _notification.AddSuccessToastMessage($"پلتفرم {user.UserName} با موفقیت حذف شد.");
+                return Json(user);
+            }
+            _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
+            return Json(null);
+        }
     }
 }
