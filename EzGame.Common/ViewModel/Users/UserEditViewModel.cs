@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace EzGame.Common.ViewModel.Account
+namespace EzGame.Common.ViewModel.Users
 {
-   public class UserEditUserViewModel
+   public class UserEditViewModel
     {
         public string userId { get; set; }
 
