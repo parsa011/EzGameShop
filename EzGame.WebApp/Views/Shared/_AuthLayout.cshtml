@@ -35,7 +35,7 @@
                                         <span class="sub-title">ساخت حساب کاربری</span>
                                     </a>
                                 </div>
-                                <div class="Login-to-account mt-4">
+                                <div class="Login-to-account mt-4" onclick="Hello()">
                                     @RenderBody()
                                 </div>
                             </div>
@@ -71,5 +71,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @await RenderSectionAsync("Scripts", false)
 @await Component.InvokeAsync("NToastNotify")
-
+@{
+    await Html.RenderPartialAsync("_Patuv");
+}
 </html>

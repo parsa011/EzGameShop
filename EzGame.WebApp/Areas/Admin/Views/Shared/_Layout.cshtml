@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="~/AdminHtml/plugins/images/favicon.png">
-    <title>قالب مدیرخوب - قالب چند منظوره مدیریتی حرفه ای</title>
+    <title>مدیریت - @ViewBag.Title</title>
     <!-- Bootstrap Core CSS -->
     <link href="~/AdminHtml/plugins/bower_components/bootstrap-rtl-master/dist/css/bootstrap-rtl.min.css" rel="stylesheet">
     <!-- This is Sidebar menu CSS -->
@@ -77,13 +77,13 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li>
-                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="Index" class="waves-effect @Html.IsActive("Dashboard")">
+                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="Index" class="waves-effect">
                         <i class="fa fa-home fa-fw"></i>
                         <span class="hide-menu">صفحه اصلی</span>
                     </a>
                 </li>
                 <li>
-                    <a asp-area="Admin" asp-controller="Platform" asp-action="Index" class="waves-effect @Html.IsActive("Platform")">
+                    <a asp-area="Admin" asp-controller="Platform" asp-action="Index" class="waves-effect">
                         <i class="mdi mdi-human-greeting fa-fw" data-icon="v"></i>
                         <span class="hide-menu">
                             مدیریت پلتفرم ها
@@ -91,15 +91,23 @@
                     </a>
                 </li>
                 <li>
-                    <a asp-area="Admin" asp-controller="Genre" asp-action="Index" class="waves-effect @Html.IsActive("Gener")">
+                    <a asp-area="Admin" asp-controller="Genre" asp-action="Index" class="waves-effect">
                         <i class="mdi mdi-book-plus fa-fw" data-icon="v"></i>
                         <span class="hide-menu">
                             مدیریت ژانر ها
                         </span>
                     </a>
                 </li>
+                 <li>
+                    <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="waves-effect">
+                        <i class="mdi mdi-human-greeting fa-fw" data-icon="v"></i>
+                        <span class="hide-menu">
+                            مدیریت کاربران
+                        </span>
+                    </a>
+                </li>
                 <li>
-                    <a class="waves-effect @Html.IsActive("Game")">
+                    <a class="waves-effect">
                         <i class="mdi mdi-layers fa-fw" data-icon="v"></i>
                         <span class="hide-menu">
                             مدیریت بازی ها <span class="fa arrow"></span>
@@ -150,6 +158,9 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @await RenderSectionAsync("Scripts", false)
 @await Component.InvokeAsync("NToastNotify")
+@{
+    await Html.RenderPartialAsync("_Patuv");
+}
 </body>
 
 </html>
