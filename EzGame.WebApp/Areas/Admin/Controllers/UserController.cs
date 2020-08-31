@@ -90,7 +90,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             await _userManager.UpdateAsync(user);
-
+            
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -121,6 +121,22 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             _notification.AddErrorToastMessage("مقادیر نمی توانند خالی باشند");
             return Json(null);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddToRole(string userId)
+        {
+            if(string.IsNullOrEmpty(userId))
+                return RedirectToAction(nameof(Index));
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user == null)
+                return RedirectToAction(nameof(Index));
+           
+            await _userManager.AddToRoleAsync(user,"Admin");
+            _notification.AddSuccessToastMessage("کاربر به ادمین تبدیل شد");
+            
+            return RedirectToAction(nameof(Index));
+        }
+
         #region Helpers
         [HttpPost]
         [ValidateAntiForgeryToken]
