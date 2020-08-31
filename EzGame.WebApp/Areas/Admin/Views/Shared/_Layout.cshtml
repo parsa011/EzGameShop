@@ -98,11 +98,19 @@
                         </span>
                     </a>
                 </li>
-                 <li>
+                <li>
                     <a asp-area="Admin" asp-controller="User" asp-action="Index" class="waves-effect">
                         <i class="mdi mdi-human-greeting fa-fw" data-icon="v"></i>
                         <span class="hide-menu">
                             مدیریت کاربران
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="Comment" asp-action="Index" class="waves-effect">
+                        <i class="mdi mdi-human-greeting fa-fw" data-icon="v"></i>
+                        <span class="hide-menu">
+                            مدیریت کامنت ها
                         </span>
                     </a>
                 </li>
@@ -115,7 +123,7 @@
                     </a>
                     <ul class="nav nav-second-level collapse">
                         <li class="@Html.IsActive("Game", "index")">
-                            <a asp-controller="Game" asp-action="Index" >
+                            <a asp-controller="Game" asp-action="Index">
                                 <i class=" fa-fw">1</i><span class="hide-menu">بازی ها</span>
                             </a>
                         </li>
