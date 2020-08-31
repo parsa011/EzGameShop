@@ -4,9 +4,10 @@
     ViewData["Title"] = "افزودن بازی";
 }
 
-@{ 
+@{
     var platformCount = 0;
     var GenreCount = 0;
+    var GameEditionCount = 0;
 }
 
 <div class="row" style="background: white; margin-top: 10px;border-radius: 5px;">
@@ -20,7 +21,6 @@
             <div class="form-group">
 
                 <img id="Image-@Model.Id" src="~/GameImages/@Model.ImageName" alt="Alternate Text" style="width:31%" />
-
                 <div class="white-box">
                     <label for="">تصویر را انتخاب کنید</label>
                     <input type="file" id="input-file-now" name="image" class="dropify" />
@@ -46,7 +46,7 @@
                             {
                                 <li class="badge badge-info" onclick="RemoveGenere(this)">
                                     <p>@item.Platform.Title</p>
-                                    <input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[@platformCount].Title" value="@item.Id" />  
+                                    <input type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[@platformCount].Title" value="@item.Id" />
                                 </li>
                                 platformCount++;
                             }
@@ -70,7 +70,7 @@
                             @foreach (var item in ViewBag.GameGenre)
                             {
                                 <li class="badge badge-info" onclick="RemoveGenere(this)">
-                                    <input type="text" style="display:none" onkeyup="numberChange(this)" name="Genres[@GenreCount].Id" value="@item.Id" />
+                                    <input type="text" style="display:none" name="Genres[@GenreCount].Id" value="@item.Id" />
                                     <p>@item.Genre.Title</p>
                                 </li>
                                 GenreCount++;
@@ -105,6 +105,29 @@
                 </label>
             </div>
             <div class="form-group">
+                <div class="col-md-6 col-sm-6 " style="margin-bottom:16px">
+                    <h5 class="m-t-30 m-b-10">نسخه بازی</h5>
+                    <input type="text" id="GameEditionsTitle" name="gameEdition" value="" />
+                    <input type="number" id="GameEditions" onkeyup="ShowTheBtn(this)" name="gameEdition" value="" />
+                    <a style="display:none" onclick="CreatGameEdition()" class="btn btn-dark" id="btnEdition">ثبت</a>
+                </div>
+                <div class="col-md-6 col-sm-6 CreatPlatform">
+                    <ul id="SelectGameEdition" class="" style="display:contents">
+                        @foreach (var item in ViewBag.GameEdition)
+                        {
+                            <li class="badge badge-info" onclick="RemoveGenere(this)">
+                                <p>@item.Title</p>
+                                <p>@item.Price</p>
+                                <input type="text" style="display:none" name="gameEditions[@GameEditionCount].Title" value="@item.Title" />
+                                <input type="text" style="display:none" name="gameEditions[@GameEditionCount].Price" value="@item.Price" />
+
+                            </li>
+                            GameEditionCount++;
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="افزودن" class="btn btn-primary" style="width:100%" />
             </div>
         </form>
@@ -116,7 +139,8 @@
     @Html.RenderPartialAsync("_CkEditorPartial")
     <script type="text/javascript">
         var platformsCount =@platformCount;
-        var GenresCount=@GenreCount;
+        var GenresCount =@GenreCount;
+        var GameEditionsCount=@GameEditionCount;
         function getaPlatformName(obj) {
             var item = $("#PlatformAdd").val();
             var html = '<li class="badge badge-info" onclick="RemovePlatform(this)">';
@@ -135,11 +159,31 @@
             $("#selectGenre").append(html);
             GenresCount+=1;
         }
+        function CreatGameEdition() {
+            debugger;
+            var itemTitle = $("#GameEditionsTitle").val();
+            var itemPrice = $("#GameEditions").val();
+            var html = '<li class="badge badge-info" onclick="RemoveGenere(this)">';
+            html += '<p>' + itemTitle + '</p>';
+            html += '<p>' + itemPrice + '</p>';
+            html += '<input  type="text" style="display:none" name="gameEditions[' + GameEditionsCount + '].title" value="' + itemTitle + '" />';
+            html += '<input  type="text" style="display:none" name="gameEditions[' + GameEditionsCount + '].price" value="' + itemPrice + '" />';
+            html += '</li>';
+            $("#SelectGameEdition").append(html);
+            GameEditionsCount += 1;
+        }
         function RemovePlatform(obj) {
             obj.remove();
         }
         function RemoveGenere(obj) {
             obj.remove();
+        }
+        function ShowTheBtn(obj) {
+            if (obj.value == 0) {
+                $("#btnEdition").css("display", "none");
+            } else {
+                $("#btnEdition").css("display", "inline-block");
+            }
         }
     </script>
 }

@@ -142,6 +142,8 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             };
             ViewBag.GameGenre = (await _db.GameGenreRepository.GetAllAsync(p => p.GameId == game.Id));
             ViewBag.GamePlatform = (await _db.GamePlatformRepository.GetAllAsync(p => p.GameId == game.Id));
+            ViewBag.GameEdition = (await _db.GameEditionRepository.GetAllAsync(p => p.GameId == game.Id));
+
             return View(model);
         }
 
@@ -171,25 +173,38 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             // TODO Hello :D
             await _db.GamePlatformRepository.DeleteAllRelations(game.Id);
             await _db.GameGenreRepository.DeleteAllRelations(game.Id);
+            await _db.GameEditionRepository.DeleteAllRelations(game.Id);
             foreach (var item in model.Genres)
             {
+                var Genres = (await _db.GameGenreRepository.GetAllAsync(a => a.GameId==game.Id)).FirstOrDefault();
                 await _db.GameGenreRepository.InsertAsync(new GameGenre()
                 {
                     Game = game,
                     GameId = game.Id,
-                    GenreId = item.Id
+                    GenreId = Genres.GenreId
                 });
             }
             foreach (var item in model.Platforms)
             {
+                var platforms = (await _db.GamePlatformRepository.GetAllAsync(a => a.GameId == game.Id)).FirstOrDefault();
                 await _db.GamePlatformRepository.InsertAsync(new GamePlatform()
                 {
                     Game = game,
                     GameId = game.Id,
-                    PlatformId = item.Id
+                    PlatformId = platforms.PlatformId
                 });
             }
-            
+            foreach (var item in model.gameEditions)
+            {
+
+                await _db.GameEditionRepository.InsertAsync(new GameEdition()
+                {
+                    Game = game,
+                    GameId = game.Id,
+                    Title=item.Title,
+                    Price=item.Price
+                });
+            }
             game.Title = model.Title;
             game.ComingSoon = model.ComingSoon;
             game.Count = model.Count;
