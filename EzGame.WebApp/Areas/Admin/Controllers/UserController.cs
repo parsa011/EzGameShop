@@ -7,6 +7,7 @@ using EzGame.Common.ViewModel.Settings;
 using EzGame.Common.ViewModel.Users;
 using EzGame.Domain.Entities;
 using EzGame.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ using NToastNotify;
 namespace EzGame.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("Admin")]
     public class UserController : Controller
     {
         private readonly UserManager<User> _userManager;
