@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Common.ViewModel.DashBoard;
 using EzGame.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
