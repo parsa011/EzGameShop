@@ -24,7 +24,7 @@ namespace EzGame.Data.Services.Repositories
 
         public async Task<int> CountAsync()
         {
-            return await _db.Users.CountAsync();
+            return await _db.Users.CountAsync(p => !p.IsDeleted);
         }
 
         public void Delete(object id)

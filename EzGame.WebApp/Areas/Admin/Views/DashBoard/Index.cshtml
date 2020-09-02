@@ -1,81 +1,341 @@
-﻿
+﻿@model DashBoardIndexViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-    <div class="row" style="margin-top:10px">
-        <div class="col-sm-12">
-            <div class="white-box">
-                <div class="row row-in">
-                    <div class="col-lg-3 col-sm-6 b-0">
-                        <ul class="col-in">
-                            <li>
-                                <span class="circle circle-md bg-danger"><i class="ti-clipboard"></i></span>
-                            </li>
-                            <li class="col-last"><h3 class="counter text-right m-t-15">23</h3></li>
-                            <li class="col-middle">
-                                <h4>پروژه های جدید</h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% تکمیل (موفق)</span>
-                                    </div>
-                                </div>
-                            </li>
+<div class="row" style="margin-top:10px">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                    <ul class="col-in">
+                        <li>
+                            <span class="circle circle-md bg-info"><i class="ti-wallet"></i></span>
+                        </li>
+                        <li class="col-last"><h3 class="counter text-right m-t-15">@ViewBag.GameCount</h3></li>
+                        <li class="col-middle">
+                            <h4>کل بازی ها</h4>
+                        </li>
 
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
-                        <ul class="col-in">
-                            <li>
-                                <span class="circle circle-md bg-info"><i class="ti-wallet"></i></span>
-                            </li>
-                            <li class="col-last"><h3 class="counter text-right m-t-15">76</h3></li>
-                            <li class="col-middle">
-                                <h4>درآمد کل</h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% تکمیل (موفق)</span>
-                                    </div>
-                                </div>
-                            </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <ul class="col-in">
+                        <li>
+                            <span class="circle circle-md bg-success"><i class=" ti-shopping-cart"></i></span>
+                        </li>
+                        <li class="col-last"><h3 class="counter text-right m-t-15">@ViewBag.CommentCount</h3></li>
+                        <li class="col-middle">
+                            <h4>تعداد کامنت ها</h4>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <ul class="col-in">
+                        <li>
+                            <span class="circle circle-md bg-warning"><i class="fa fa-dollar"></i></span>
+                        </li>
+                        <li class="col-last"><h3 class="counter text-right m-t-15">@ViewBag.UserCount</h3></li>
+                        <li class="col-middle">
+                            <h4>تعداد کاربران</h4>
+                        </li>
 
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 row-in-br">
-                        <ul class="col-in">
-                            <li>
-                                <span class="circle circle-md bg-success"><i class=" ti-shopping-cart"></i></span>
-                            </li>
-                            <li class="col-last"><h3 class="counter text-right m-t-15">93</h3></li>
-                            <li class="col-middle">
-                                <h4>کل پروژه ها</h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% تکمیل (موفق)</span>
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 row-in-br">
-                        <ul class="col-in">
-                            <li>
-                                <span class="circle circle-md bg-warning"><i class="fa fa-dollar"></i></span>
-                            </li>
-                            <li class="col-last"><h3 class="counter text-right m-t-15">83</h3></li>
-                            <li class="col-middle">
-                                <h4>درآمد خالص</h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% تکمیل (موفق)</span>
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">کامنت های امروز</div>
+
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                        <tr>
+                            <th width="70" class="text-center">#</th>
+                            <th class="text-center">نام کاربری</th>
+                            <th class="text-center">پست</th>
+                            <th class="text-center">متن</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-list">
+                        @foreach (var item in Model.comments)
+                        {
+                            <tr id="@item.Id">
+                                <td class="text-center">@item.Id</td>
+                                <td class="text-center">@item.User.UserName</td>
+                                <td class="text-center">@item.Game.Title</td>
+                                <td class="text-center">@item.Text</td>
+                                <td>
+                                    <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">بازی های امروز</div>
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                        <tr>
+                            <th width="200">تصویر</th>
+                            <th>نام</th>
+                            <th>تعداد</th>
+                            <th>وضعیت</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-list">
+                        @foreach (var item in Model.Games)
+                        {
+                            <tr id="@item.Id">
+                                <td>
+                                    <img id="Image-@item.Id" src="~/GameImages/@item.ImageName" alt="Alternate Text" style="width:100%" />
+                                </td>
+                                <td>
+                                    @item.Title
+                                </td>
+                                <td>
+                                    @item.Count
+                                </td>
+                                <td>
+                                    @if (!item.IsDeleted)
+                                    {
+                                        <label>حذف نشده</label>
+                                    }
+                                    else
+                                    {
+                                        <label>حذف شده</label>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                    <a type="button" href="/admin/game/editgame?id=@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="panel-heading">کاربر های امروز</div>
+
+        <div class="panel">
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table">
+                    <thead>
+                        <tr>
+                            <th width="70" class="text-center">#</th>
+                            <th class="text-center">نام کاربری</th>
+                            <th class="text-center">نام نام خانوادگی</th>
+                            <th class="text-center">جیمیل</th>
+                            <th width="300">مدیریت کردن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-list">
+                        @foreach (var item in Model.users)
+                        {
+                            <tr id="@item.Id">
+                                <td class="text-center">@item.Id</td>
+                                <td class="text-center">@item.UserName</td>
+                                @if (item.LastName != null || item.FirstName != null)
+                                {
+                                    <td class="text-center">@item.FirstName @item.LastName</td>
+
+                                }
+                                else
+                                {
+                                    <td class="text-center">------------</td>
+                                }
+                                <td class="text-center">
+                                    @item.Email
+                                </td>
+                                <td>
+                                    <button type="button" attr="@item.Id" onclick="OpenDeleteModel(this)" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                    <a type="button" asp-action="EditUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        <i class="ti-pencil-alt"></i>
+                                    </a>
+                                    <a type="button" asp-action="AddToRole" asp-controller="User" asp-route-userId="@item.Id" class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+                                        مدیریت رول
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete Modal Comments -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <input type="hidden" id="DeleteID" name="name" value="" />
+            <label id="lal">
+
+            </label>
+
+            <br />
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="btnDelete">حذف</button>
+        </div>
+    </div>
+</div>
+<!-- delete Modal Games-->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <input type="hidden" id="DeleteID" name="name" value="" />
+            <label id="lal">
+
+            </label>
+
+            <br />
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="btnDelete">حذف</button>
+        </div>
+    </div>
+</div>
+<!-- delete Modal user-->
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <input type="hidden" id="DeleteID" name="name" value="" />
+            <label id="lal">
+
+            </label>
+
+            <br />
+            <button style="width:100%;margin-top:10px" class="btn btn-success" id="btnDelete">حذف</button>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //حذف
+            $("#btnDelete").click(function (e) {
+                e.preventDefault();
+                var id = $("#DeleteID").val();
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/Comment/DeleteComment",
+                    data: { id: id },
+                    success: function (result) {
+                        $("#exampleModal").modal("hide");
+                        if (result != null) {
+                            $("tr#" + result.id).remove();
+                        }
+                    }
+
+                })
+            })
+            //حذف بازی
+            $("#btnDelete").click(function (e) {
+                e.preventDefault();
+                var id = $("#DeleteID").val();
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/Game/DeleteGame",
+                    data: { ID: id },
+                    success: function (result) {
+                        $("#exampleModal3").modal("hide");
+                        if (result != null) {
+                            debugger;
+                            $("tr#" + result.id).remove();
+                        }
+                    }
+
+                })
+            })
+            //حذف کاربر
+            $("#btnDelete").click(function (e) {
+                e.preventDefault();
+                var id = $("#DeleteID").val();
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/User/DeleteUser",
+                    data: { ID: id },
+                    success: function (result) {
+                        $("#exampleModal4").modal("hide");
+                        if (result != null) {
+                            $("tr#" + result.id).remove();
+                        }
+                    }
+
+                })
+            })
+        })
+        function OpenDeleteModel(obj) {
+            var attr = obj.getAttribute("attr");
+            $.ajax({
+                type: "Post",
+                url: "/admin/Comment/GetCommentById",
+                data: { id: attr },
+                success: function (result) {
+                    if (result != null) {
+                        debugger;
+                        $("#exampleModal").modal("show");
+                        $("#DeleteID").val(result.id);
+                        document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.id + ' اطمینان دارید؟';
+                    }
+                }
+            });
+        }
+        function OpenDeleteModel(obj) {
+            var attr = obj.getAttribute("attr");
+            $.ajax({
+                type: "Post",
+                url: "/admin/Game/GetGameById",
+                data: { id: attr },
+                success: function (result) {
+                    if (result != null) {
+                        debugger;
+                        $("#exampleModal3").modal("show");
+                        $("#DeleteID").val(result.id);
+                        document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.title + ' اطمینان دارید؟';
+                    }
+                }
+            });
+        }
+        function OpenDeleteModel(obj) {
+            var attr = obj.getAttribute("attr");
+            $.ajax({
+                type: "Post",
+                url: "/admin/user/GetUserById",
+                data: { id: attr },
+                success: function (result) {
+                    if (result != null) {
+                        debugger;
+                        $("#exampleModal4").modal("show");
+                        $("#DeleteID").val(result.id);
+                        document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.userName + ' اطمینان دارید؟';
+                    }
+                }
+            });
+        }
+    </script>
+
+}
