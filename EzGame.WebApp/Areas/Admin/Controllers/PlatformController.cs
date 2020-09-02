@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using EzGame.Common.Filters.ActionFilters;
 using EzGame.Data.Interfaces;
 using EzGame.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
 namespace EzGame.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("Admin")]
     public class PlatformController : Controller
     {
         private readonly IUnitOfWork _db;

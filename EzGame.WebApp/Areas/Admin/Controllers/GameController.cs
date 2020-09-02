@@ -8,6 +8,7 @@ using EzGame.Domain.Entities;
 using EzGame.Domain.Enums;
 using EzGame.Services.FileManager;
 using EzGame.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ using NToastNotify;
 namespace EzGame.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("Admin")]
     public class GameController : Controller
     {
         private readonly IUnitOfWork _db;

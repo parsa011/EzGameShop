@@ -10,6 +10,7 @@ using NToastNotify;
 namespace EzGame.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("Admin")]
     public class DashBoardController : Controller
     {
         private readonly IUnitOfWork _db;
