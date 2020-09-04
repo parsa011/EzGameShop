@@ -20,8 +20,8 @@ namespace EzGame.WebApp.ViewComponents
         {
             var model = new NavbarViewModel
             {
-                Genres = await _db.GenreRepository.GetAllAsync(),
-                Platforms = await _db.PlatformRepository.GetAllAsync()
+                Genres = await _db.GenreRepository.GetAllAsync(a=>!a.IsDeleted),
+                Platforms = await _db.PlatformRepository.GetAllAsync(a => !a.IsDeleted)
             };
             return (IViewComponentResult)View("Navbar",model);
         }
