@@ -1,4 +1,5 @@
-﻿using EzGame.Data.Interfaces;
+﻿using EzGame.Common.ViewModel.ViewComponents;
+using EzGame.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,14 @@ namespace EzGame.WebApp.ViewComponents
         {
             _db = db;
         }
-        public  IViewComponentResult InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-
-            return (IViewComponentResult)View();
+            var model = new NavbarViewModel
+            {
+                Genres = await _db.GenreRepository.GetAllAsync(),
+                Platforms = await _db.PlatformRepository.GetAllAsync()
+            };
+            return (IViewComponentResult)View("Navbar",model);
         }
     }
 }
