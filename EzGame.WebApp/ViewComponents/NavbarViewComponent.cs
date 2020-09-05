@@ -1,14 +1,11 @@
 ﻿using EzGame.Common.ViewModel.ViewComponents;
 using EzGame.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;using System;
-
 using System.Threading.Tasks;
 
 namespace EzGame.WebApp.ViewComponents
 {
-    public class NavbarViewComponent:ViewComponent
+    public class NavbarViewComponent : ViewComponent
     {
         private readonly IUnitOfWork _db;
 
