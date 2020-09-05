@@ -22,9 +22,9 @@ namespace EzGame.IOC.IdentityConfig
             services.AddScoped<PersianIdentityErrorDescriber>();
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = new PathString("/Auth/Login");
-                options.AccessDeniedPath = new PathString("/Auth/AccessDenied");
-                options.LogoutPath = new PathString("/Auth/LogOut");
+                options.LoginPath = new PathString("/Account/Login");
+                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                options.LogoutPath = new PathString("/Account/LogOut");
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
             services.AddAuthorization(options =>

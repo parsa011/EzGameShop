@@ -122,16 +122,11 @@ namespace EzGame.WebApp.Contorllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(AccountLoginViewModel model, string returnUrl = null)
         {
+            model.ExternalsLogin = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (!ModelState.IsValid)
             {
-                var login = new AccountLoginViewModel()
-                {
-                    Email = model.Email,
-                    Password = model.Password,
-                    ReturnUrl = returnUrl,
-                    ExternalsLogin = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
-                };
-                return View(login);
+                return View(model);
             }
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
@@ -241,7 +236,7 @@ namespace EzGame.WebApp.Contorllers
             return View("Login");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();

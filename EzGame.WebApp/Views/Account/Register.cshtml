@@ -16,17 +16,17 @@
         </div>
         <div class="form-account-title">
             <label for="email-phone">ایمیل </label>
-            <input asp-for="Email" type="email" class="number-email-input" id="Email">
+            <input asp-for="Email" type="email" class="number-email-input text-left" style="direction:ltr" id="Email">
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="password">رمز عبور</label>
-            <input asp-for="Password" type="password" class="password-input" id="Password">
+            <input asp-for="Password" type="password" class="password-input text-left" style="direction:ltr" id="Password">
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="password">تکرار رمز عبور</label>
-            <input asp-for="ConfirmPassword" type="password" class="password-input" id="RePassword">
+            <input asp-for="ConfirmPassword" type="password" class="password-input text-left" style="direction:ltr" id="RePassword">
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
         <div class="form-auth-row">
@@ -38,7 +38,7 @@
                 </a>استفاده از سرویس های سایت را مطالعه نموده و با کلیه موارد آن موافقم.</label>
         </div>
         <div class="form-row-account">
-            <button type="submit" class="btn btn-primary btn-register btn-block text-white">ثبت نام</a>
+            <button type="submit" class="btn btn-primary btn-register btn-block text-white">ثبت نام</button>
         </div>
     </form>
 </div>

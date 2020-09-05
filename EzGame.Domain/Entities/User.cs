@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EzGame.Domain.Entities
 {
@@ -9,8 +8,9 @@ namespace EzGame.Domain.Entities
     {
         public User()
         {
-                
+            CreatedTime = DateTime.Now;
         }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime CreatedTime { get; set; }
