@@ -11,7 +11,7 @@
         @Html.AntiForgeryToken()
         <div class="form-account-title">
             <label for="email-phone">ایمیل </label>
-            <input asp-for="Email" type="text" class="number-email-input" id="Email" name="email-account">
+            <input asp-for="Email" type="text" class="number-email-input" id="Email">
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-account-title">
@@ -29,7 +29,7 @@
              <span asp-validation-for="RememberMe" class="text-danger"></span>
         </div>
         <div class="form-row-account">
-            <button type="submit" class="btn btn-primary btn-block text-white btn-login">ورود</a>
+            <button type="submit" class="btn btn-primary btn-block text-white btn-login">ورود</button>
         </div>
     </form>
      @if (Model.ExternalsLogin.Count != 0)
