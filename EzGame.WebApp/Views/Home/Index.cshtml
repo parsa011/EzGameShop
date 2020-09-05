@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -63,7 +64,7 @@
             <div class="adplacement-container-column mt-4">
                 <a href="#" class="adplacement-item img-banner">
                     <div class="adplacement-sponsored-box">
-                        <img src="~/SiteTemplate/assets/images/adplacement/a-3.jpg">
+                        <img src="~/SiteTemplate/assets/images/adplacement/a-3.jpg" style="height:430px">
                     </div>
                 </a>
             </div>
@@ -455,49 +456,6 @@
         <!-- slider-amazing------------------------>
     </div>
 </div>
-<!-- adplacement--------------------------->
-<div class="container-main">
-    <div class="d-block">
-        <div class="adplacement-container-row">
-            <div class="col-12">
-                <a href="#" class="adplacement-item mb-4">
-                    <div class="adplacement-sponsored_box">
-                        <img src="~/SiteTemplate/assets/images/adplacement/a-8.jpg">
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-lg-3 pr">
-                <a href="#" class="adplacement-item">
-                    <div class="adplacement-sponsored_box">
-                        <img src="~/SiteTemplate/assets/images/adplacement/a-4.jpg">
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-lg-3 pr">
-                <a href="#" class="adplacement-item">
-                    <div class="adplacement-sponsored_box">
-                        <img src="~/SiteTemplate/assets/images/adplacement/a-5.jpg">
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-lg-3 pr">
-                <a href="#" class="adplacement-item">
-                    <div class="adplacement-sponsored_box">
-                        <img src="~/SiteTemplate/assets/images/adplacement/a-6.jpg">
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-lg-3 pr">
-                <a href="#" class="adplacement-item">
-                    <div class="adplacement-sponsored_box">
-                        <img src="~/SiteTemplate/assets/images/adplacement/a-7.jpg">
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- adplacement--------------------------->
 <!-- slidre-product------------------------>
 <div class="container-main">
     <div class="d-block">
@@ -816,42 +774,6 @@
                 </div>
             </div>
         </div>
-        <!-- adplacement--------------------------->
-        <div class="container-fluid">
-            <div class="row pr">
-                <div class="adplacement-container-row">
-                    <div class="col-6 col-lg-3 pr">
-                        <a href="#" class="adplacement-item">
-                            <div class="adplacement-sponsored_box">
-                                <img src="~/SiteTemplate/assets/images/adplacement/a-4.jpg">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-lg-3 pr">
-                        <a href="#" class="adplacement-item">
-                            <div class="adplacement-sponsored_box">
-                                <img src="~/SiteTemplate/assets/images/adplacement/a-5.jpg">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-lg-3 pr">
-                        <a href="#" class="adplacement-item">
-                            <div class="adplacement-sponsored_box">
-                                <img src="~/SiteTemplate/assets/images/adplacement/a-6.jpg">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-lg-3 pr">
-                        <a href="#" class="adplacement-item">
-                            <div class="adplacement-sponsored_box">
-                                <img src="~/SiteTemplate/assets/images/adplacement/a-7.jpg">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- adplacement--------------------------->
         <div class="col-lg-12 col-md-12 col-xs-12 pr order-1 d-block">
             <div class="slider-widget-products">
                 <div class="widget widget-product card">
@@ -961,92 +883,33 @@
             <div class="slider-widget-products">
                 <div class="widget widget-product card">
                     <header class="card-header">
-                        <span class="title-one">کامپیوتر و لپ تاپ</span>
+                        <span class="title-one">بازی های اکشن</span>
                         <h3 class="card-title"></h3>
                     </header>
                     <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
                         <div class="owl-stage-outer">
                             <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
-                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link">
-                                            <img src="~/SiteTemplate/assets/images/slider-product/mitbook.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#">
-                                                هواوای میت بوک X پرو 13.9 اینچ
+                                @* درست بشه *@
+                                @foreach (var item in Model.Games.Take(5))
+                                {
+                                    <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                                        <div class="item">
+                                            <a href="#" class="d-block hover-img-link">
+                                                <img src="~/GameImages/@item.ImageName" class="img-fluid" alt="">
                                             </a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>۱۲,۰۰۰,۰۰۰<span>تومان</span></span></del>
-                                            <ins><span>۱۰,۵۰۰,۰۰۰<span>تومان</span></span></ins>
+                                            <h2 class="post-title">
+                                                <a href="#">
+                                                    @item.Title-
+                                                </a>
+                                            </h2>
+                                            <div class="price">
+                                                <del><span>@item<span>تومان</span></span></del>
+                                                <ins><span>۱۰,۵۰۰,۰۰۰<span>تومان</span></span></ins>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link">
-                                            <img src="~/SiteTemplate/assets/images/slider-product/SL1200_-300x300.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#">
-                                                لپ تاپ چووی الترابوک 14 اینچ پرو
-                                            </a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>۳,۲۰۰,۰۰۰<span>تومان</span></span></del>
-                                            <ins><span>۲,۵۰۰,۰۰۰<span>تومان</span></span></ins>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="owl-item" style="width: 309.083px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link">
-                                            <img src="~/SiteTemplate/assets/images/slider-product/zenbook.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#">
-                                                لپ تاپ 13 اینچی ایسوس مدل ZenBook S13 UX392FN - A
-                                            </a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>۷,۵۰۰,۰۰۰<span>تومان</span></span></del>
-                                            <ins><span>۶,۰۰۰,۰۰۰<span>تومان</span></span></ins>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link">
-                                            <img src="~/SiteTemplate/assets/images/slider-product/computer-appel.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#">
-                                                کامپیوتر همه کاره 27 اینچی اپل مدل iMac CTO - A 2019 با صفحه نمایش رتینا 5K
-                                            </a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>۳,۵۰۰,۰۰۰<span>تومان</span></span></del>
-                                            <ins><span>۲,۰۰۰,۰۰۰<span>تومان</span></span></ins>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link">
-                                            <img src="~/SiteTemplate/assets/images/slider-product/asus-laptop.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#">
-                                                لپ تاپ ایسوس زِنبوک 14
-                                            </a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>۶,۵۰۰,۰۰۰<span>تومان</span></span></del>
-                                            <ins><span>۴,۲۰۰,۰۰۰<span>تومان</span></span></ins>
-                                        </div>
-                                    </div>
-                                </div>
+                                }
+
                             </div>
                         </div>
                         <div class="owl-nav">
@@ -1068,75 +931,19 @@
                 <div class="widget widget-product card mb-0">
                     <div class="product-carousel-brand owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
                         <div class="owl-stage-outer">
-                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
+                            @* عکس نشان داده نمی شود *@
+                            @foreach (var item in Model.platforms)
+                            {
                                 <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
                                     <div class="item">
                                         <a href="#" class="d-block hover-img-link">
-                                            <img src="~/SiteTemplate/assets/images/brand/shahab.png" class="img-fluid img-brand" alt="">
+                                            <img  src="@item.Logo" alt="@item.Title"/>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/adata.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/huawei.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/nokia.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/panasonic.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/parskhazar.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/samsung.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link mt-0">
-                                            <img src="~/SiteTemplate/assets/images/brand/xvison.png" class="img-fluid img-brand" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            }
+                            <div class="owl-dots disabled"></div>
                         </div>
-                        <div class="owl-nav">
-                            <button type="button" role="presentation" class="owl-prev disabled">
-                                <i class="fa fa-angle-right"></i>
-                            </button>
-                            <button type="button" role="presentation" class="owl-next">
-                                <i class="fa fa-angle-left"></i>
-                            </button>
-                        </div>
-                        <div class="owl-dots disabled"></div>
-                    </div>
                 </div>
             </div>
         </div>

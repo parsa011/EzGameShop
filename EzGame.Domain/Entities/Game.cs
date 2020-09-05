@@ -24,6 +24,7 @@ namespace EzGame.Domain.Entities
         public virtual IEnumerable<Comment> Comments { get; set; }
         public virtual IEnumerable<GameDiscount> GameDiscount { get; set; }
         public virtual IEnumerable<GameGenre> GameGenre { get; set; }
+        public virtual IEnumerable<GameEdition> GameEditions { get; set; }
         public virtual IEnumerable<GamePlatform> GamePlatform { get; set; }
 
 

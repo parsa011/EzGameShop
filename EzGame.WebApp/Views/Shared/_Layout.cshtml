@@ -67,32 +67,54 @@
                             <div class="header-account text-left">
                                 <div class="d-block">
                                     <div class="account-box">
-                                        <div class="nav-account d-block pl">
-                                            <span class="icon-account">
-                                                <img src="~/SiteTemplate/assets/images/man.png" class="avator">
-                                            </span>
-                                            <span class="title-account">حساب کاربری</span>
-                                            <div class="dropdown-menu">
-                                                <ul class="account-uls mb-0">
-                                                    <li class="account-item">
-                                                        <a asp-action="Login" asp-controller="Account" class="account-link">ورود</a>
-                                                    </li>
-                                                    <li class="account-item">
-                                                        <a asp-action="Register" asp-controller="Account" class="account-link">ثبت نام</a>
-                                                    </li>
-                                                </ul>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="nav-account d-block pl">
+                                                <span class="icon-account">
+                                                    <img src="~/SiteTemplate/assets/images/man.png" class="avator">
+                                                </span>
+                                                <span class="title-account">@User.Identity.Name</span>
+                                                <div class="dropdown-menu">
+                                                    <ul class="account-uls mb-0">
+                                                        <li class="account-item">
+                                                            <a href="#" class="account-link">پنل کاربری</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="#" class="account-link">سفارشات من</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="#" class="account-link">تنظیمات</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="~/authentication/SignOut" class="account-link">خروج</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="nav-account d-block pl">
+                                                <a href="~/Account/Register">
+                                                    <span class="title-account">ثبت نام</span>
+                                                </a>
+
+                                                <a href="~/Account/Login">
+                                                    <span class="title-account">ورود</span>
+                                                </a>
+                                            </div>
+                                        }
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
+                @* viewcomponent search *@
                 @await Component.InvokeAsync("Navbar")
 
-               
+
                 <div class="nav-btn nav-slider">
                     <span class="linee1"></span>
                     <span class="linee2"></span>

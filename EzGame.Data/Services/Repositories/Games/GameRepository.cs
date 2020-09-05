@@ -61,12 +61,12 @@ namespace EzGame.Data.Services.Repositories.Games
 
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
-            return await _db.Games.ToListAsync();
+            return await _db.Games.Include(p=>p.GamePlatform).Include(p=>p.GameEditions).Include(p=>p.GameGenre).ToListAsync();
         }
 
         public async Task<ICollection<Game>> GetAllAsync(Expression<Func<Game, bool>> match)
         {
-            return await _db.Games.Where(match).ToListAsync();
+            return await _db.Games.Where(match).Include(p => p.GamePlatform).Include(p => p.GameEditions).Include(p => p.GameGenre).ToListAsync();
         }
 
         public async Task<Game> GetAsync(Expression<Func<Game, bool>> where)
