@@ -124,7 +124,14 @@ namespace EzGame.WebApp.Contorllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                var login = new AccountLoginViewModel()
+                {
+                    Email = model.Email,
+                    Password = model.Password,
+                    ReturnUrl = returnUrl,
+                    ExternalsLogin = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+                };
+                return View(login);
             }
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)

@@ -27,6 +27,11 @@ namespace EzGame.IOC.IdentityConfig
                 options.LogoutPath = new PathString("/Auth/LogOut");
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                       policy.RequireRole("Admin"));
+            });
         }
 
         public static void UseCustomIdentityServices(this IApplicationBuilder app)
