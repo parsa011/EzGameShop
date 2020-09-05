@@ -5,12 +5,12 @@
     <div class="slider-widget-products">
         <div class="widget widget-product card">
             <header class="card-header pt-2 pr-4">
-                <span class="title-one">بازی های اکشن</span>
+                <span class="title-one">جدید ترین ها</span>
             </header>
             <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
                 <div class="owl-stage-outer">
                     <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
-                        @foreach (var item in Model.Take(5))
+                        @foreach (var item in Model.Take(5).OrderBy(p=>p.CreatedTime))
                         {
                             <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
                                 <div class="item">
@@ -19,12 +19,12 @@
                                     </a>
                                     <h2 class="post-title">
                                         <a href="#">
-                                            @item.Title-
+                                            @item.Title-@if (item.GameEditions.Any()) {  <p >@item.GameEditions[0].Title</p> }
                                         </a>
                                     </h2>
                                     <div class="price">
-                                        <del><span>@item<span>تومان</span></span></del>
-                                        <ins><span>۱۰,۵۰۰,۰۰۰<span>تومان</span></span></ins>
+                                        @*<del><span>@item.<span>تومان</span></span></del>*@
+                                        <ins><span>-@if (item.GameEditions.Any()) {<p>@item.GameEditions[0].Price</p>}<span>تومان</span></span></ins>
                                     </div>
                                 </div>
                             </div>
