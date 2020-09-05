@@ -7,18 +7,19 @@
 <div class="account-box-content">
     <h4>ورود به حساب کاربری</h4>
     <form action="/Account/Login" method="POST" class="form-account text-right">
-        <div asp-validation-summary="ModelOnly"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ReturnUrl" value="@Model.ReturnUrl" />
         @Html.AntiForgeryToken()
         <div class="form-account-title">
             <label for="email-phone">ایمیل </label>
-            <input asp-for="Email" type="text" class="number-email-input" id="Email">
+            <input asp-for="Email" type="text" class="number-email-input text-left" style="direction:ltr"  id="Email">
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-account-title">
             <label for="password">رمز عبور</label>
             <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
-            <input asp-for="Password" type="password" class="password-input" id="Password">
-             <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Password" type="password" class="password-input text-left" style="direction:ltr" id="Password">
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-auth-row">
             <label for="#" class="ui-checkbox mt-1">
