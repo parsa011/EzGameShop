@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Game>
+@{
+    ViewData["Title"] = "Product";
+}
+
+@* درست بشه *@
+@foreach (var item in Model.Take(5))
+{
+    <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+        <div class="item">
+            <a href="#" class="d-block hover-img-link">
+                <img src="~/GameImages/@item.ImageName" class="img-fluid" alt="">
+            </a>
+            <h2 class="post-title">
+                <a href="#">
+                    @item.Title-
+                </a>
+            </h2>
+            <div class="price">
+                <del><span>@item<span>تومان</span></span></del>
+                <ins><span>۱۰,۵۰۰,۰۰۰<span>تومان</span></span></ins>
+            </div>
+        </div>
+    </div>
+}

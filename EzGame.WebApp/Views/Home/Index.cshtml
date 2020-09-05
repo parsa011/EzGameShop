@@ -1,5 +1,4 @@
-﻿@model HomeIndexViewModel
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -889,27 +888,8 @@
                     <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
                         <div class="owl-stage-outer">
                             <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
-                                @* درست بشه *@
-                                @foreach (var item in Model.Games.Take(5))
-                                {
-                                    <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
-                                        <div class="item">
-                                            <a href="#" class="d-block hover-img-link">
-                                                <img src="~/GameImages/@item.ImageName" class="img-fluid" alt="">
-                                            </a>
-                                            <h2 class="post-title">
-                                                <a href="#">
-                                                    @item.Title-
-                                                </a>
-                                            </h2>
-                                            <div class="price">
-                                                <del><span>@item<span>تومان</span></span></del>
-                                                <ins><span>۱۰,۵۰۰,۰۰۰<span>تومان</span></span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
+                                @* viewcomponent Product *@
+                                @await Component.InvokeAsync("Product")
                             </div>
                         </div>
                         <div class="owl-nav">
@@ -931,18 +911,8 @@
                 <div class="widget widget-product card mb-0">
                     <div class="product-carousel-brand owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
                         <div class="owl-stage-outer">
-                            @* عکس نشان داده نمی شود *@
-                            @foreach (var item in Model.platforms)
-                            {
-                                <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-                                    <div class="item">
-                                        <a href="#" class="d-block hover-img-link">
-                                            <img  src="@item.Logo" alt="@item.Title"/>
-                                        </a>
-                                    </div>
-                                </div>
-                            }
-                            <div class="owl-dots disabled"></div>
+                            @* viewcomponent PlatformList *@
+                            @await Component.InvokeAsync("PlatformList")
                         </div>
                 </div>
             </div>

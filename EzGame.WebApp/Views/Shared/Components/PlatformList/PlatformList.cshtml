@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Platform>
+@{
+    ViewData["Title"] = "PlatformList";
+}
+
+@* عکس نشان داده نمی شود *@
+@foreach (var item in Model)
+{
+    <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
+        <div class="item">
+            <a href="#" class="d-block hover-img-link">
+                <img src="@item.Logo" alt="@item.Title" />
+            </a>
+        </div>
+    </div>
+}
+<div class="owl-dots disabled"></div>
