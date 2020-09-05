@@ -1,9 +1,9 @@
 ﻿using EzGame.Common.ViewModel.ViewComponents;
 using EzGame.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;using System;
+
 using System.Threading.Tasks;
 
 namespace EzGame.WebApp.ViewComponents
