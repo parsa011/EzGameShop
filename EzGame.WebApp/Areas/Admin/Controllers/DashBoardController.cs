@@ -29,8 +29,8 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             ViewBag.CommentCount = await _db.CommentRepository.CountAsync();
             var viewmodel = new DashBoardIndexViewModel() {
                 Games = _db.GameRepository.Where(p => p.CreatedTime.Date == DateTime.Now.Date && !p.IsDeleted).ToList(),
-                comments=_db.CommentRepository.Where(p=> p.CreatedTime.Date == DateTime.Now.Date && !p.IsDeleted).ToList(),
-                users= _db.UserRepository.Where(p => p.CreatedTime.Date == DateTime.Now.Date&&!p.IsDeleted).ToList(),
+                Comments=_db.CommentRepository.Where(p=> p.CreatedTime.Date == DateTime.Now.Date && !p.IsDeleted).ToList(),
+                Users= _db.UserRepository.Where(p => p.CreatedTime.Date == DateTime.Now.Date&&!p.IsDeleted).ToList(),
             };
             return View(viewmodel);
         }

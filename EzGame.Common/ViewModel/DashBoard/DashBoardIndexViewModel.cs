@@ -8,7 +8,7 @@ namespace EzGame.Common.ViewModel.DashBoard
     public class DashBoardIndexViewModel
     {
         public IEnumerable<Game> Games { get; set; }
-        public IEnumerable<User> users { get; set; }
-        public IEnumerable<Comment> comments { get; set; }
+        public IEnumerable<User> Users { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
