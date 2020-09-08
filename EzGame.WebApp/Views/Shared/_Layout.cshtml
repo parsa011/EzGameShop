@@ -76,6 +76,12 @@
                                                 <span class="title-account">@User.Identity.Name</span>
                                                 <div class="dropdown-menu">
                                                     <ul class="account-uls mb-0">
+                                                        @if (User.IsInRole("Admin"))
+                                                        {
+                                                            <li class="account-item">
+                                                                <a asp-area="Admin" asp-controller="DashBoard" class="account-link">پنل ادمین</a>
+                                                            </li>
+                                                        }
                                                         <li class="account-item">
                                                             <a href="#" class="account-link">پنل کاربری</a>
                                                         </li>
