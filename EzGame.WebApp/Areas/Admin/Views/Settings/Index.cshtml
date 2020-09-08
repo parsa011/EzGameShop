@@ -1,0 +1,25 @@
+﻿@model SiteSettingsViewModel
+@{
+    ViewData["Title"] = "تنظیمات سایت";
+}
+
+<div class="row" style="background: white; margin-top: 10px;border-radius: 5px;">
+    <div class="text-center">
+        <h2>تنظیمات</h2>
+    </div>
+    <div class="col-md-4" style="width: 100%; padding: 27px;">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">قیمت دلار</label>
+                <input asp-for="DollarPrice" class="form-control" />
+                <span asp-validation-for="DollarPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="ویرایش" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
