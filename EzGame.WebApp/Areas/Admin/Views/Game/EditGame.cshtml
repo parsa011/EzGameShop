@@ -118,8 +118,8 @@
                             <li class="badge badge-info" onclick="RemoveGenere(this)">
                                 <p>@item.Title</p>
                                 <p>@item.Price</p>
-                                <input type="text" style="display:none" name="gameEditions[@GameEditionCount].Title" value="@item.Title" />
-                                <input type="text" style="display:none" name="gameEditions[@GameEditionCount].Price" value="@item.Price" />
+                                <input type="text" style="display:none" name="GameEdition[@GameEditionCount].Title" value="@item.Title" />
+                                <input type="text" style="display:none" name="GameEdition[@GameEditionCount].Price" value="@item.Price" />
 
                             </li>
                             GameEditionCount++;
@@ -142,10 +142,10 @@
         var GenresCount =@GenreCount;
         var GameEditionsCount=@GameEditionCount;
         function getaPlatformName(obj) {
-            var item = $("#PlatformAdd").val();
+            var item = $("#PlatformAdd");
             var html = '<li class="badge badge-info" onclick="RemovePlatform(this)">';
-            html += '<p>' + item + '</p>';
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Id" value="' + item + '" />';
+            html += '<p>' + item.text() + '</p>';
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Id" value="' + item.val() + '" />';
             html += '</li>';
             $("#selectplatform").append(html);
             platformsCount+=1;
