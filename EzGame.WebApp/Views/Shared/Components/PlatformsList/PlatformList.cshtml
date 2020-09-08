@@ -1,14 +1,24 @@
 ﻿@model IEnumerable<Platform>
-
 @* عکس نشان داده نمی شود *@
-@foreach (var item in Model)
-{
-    <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
-        <div class="item">
-            <a href="#" class="d-block hover-img-link">
-                <img src="@item.Logo" alt="@item.Title" />
-            </a>
+
+<div class="col-lg-12 col-md-12 col-xs-12 pr order-1 d-block">
+    <div class="slider-widget-products">
+        <div class="widget widget-product card mb-0">
+            <div class="product-carousel-brand owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                <div class="owl-stage-outer">
+                    @foreach (var item in Model)
+                    {
+                        <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
+                            <div class="item">
+                                <a href="#" class="d-block hover-img-link">
+                                    <img src="@item.Logo" alt="@item.Title" />
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    <div class="owl-dots disabled"></div>
+                </div>
+            </div>
         </div>
     </div>
-}
-<div class="owl-dots disabled"></div>
+</div>
