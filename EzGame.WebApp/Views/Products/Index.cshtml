@@ -47,8 +47,10 @@
                                         </a>
                                     </div>
                                     <div class="title">
-                                        <a href="~/products/detail/500">@item.Title--@if (item.GameEditions.Any())
-                                                                                {<p>@item.GameEditions[0].Title</p>}</a>
+                                        <a href="~/products/detail/500">
+                                            @item.Title--@if (item.GameEditions.Any())
+                                            {<p>@item.GameEditions[0].Title</p>}
+                                        </a>
                                     </div>
                                     <div class="price">
                                         <span class="amount">
@@ -65,8 +67,42 @@
                 </div>
             </div>
         </div>
-        <div class="pagination-product">
-            @* صفحه بندی در اینجا *@
+        <div class="row text-center" style="justify-content: center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        @if (ViewBag.PageID == 1)
+                        {
+
+                        }
+                        else
+                        {
+                            var c = ViewBag.PageID - 1;
+                            <a class="page-link" href="/Products/Index?pageid=@c" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        }
+                    </li>
+                    @for (var i = 1; i <= ViewBag.CountPage - 1; i++)
+                    {
+                        <li class="@(((int)ViewBag.PageID == i) ? "page-item active" : "page-item"))"><a class="page-link" href="/Products/Index?pageid=@i">@i</a></li>
+
+                    }
+                    <li class="page-item">
+                        @if (ViewBag.PageID == ViewBag.CountPage - 1)
+                        {
+
+                        }
+                        else
+                        {
+                            var c = ViewBag.PageID + 1;
+                            <a class="page-link" href="/Products/Index?pageid=@c" aria-label="Previous">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        }
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

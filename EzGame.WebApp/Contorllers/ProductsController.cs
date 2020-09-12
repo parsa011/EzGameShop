@@ -21,9 +21,13 @@ namespace EzGame.WebApp.Contorllers
 
         //Get 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageid = 1)
         {
-            var Games = (await _db.GameRepository.GetAllAsync(a => !a.IsDeleted));
+            var skip = (pageid - 1) * 25;
+            var count = await _db.GameRepository.CountAsync();
+            ViewBag.PageID = pageid;
+            ViewBag.CountPage = count;
+            var Games = (await _db.GameRepository.GetPage(skip));
             return View(Games);
         }
 

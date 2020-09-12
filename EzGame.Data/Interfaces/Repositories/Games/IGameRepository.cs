@@ -15,12 +15,15 @@ namespace EzGame.Data.Interfaces.Repositories.Games
         void Delete(Game entity);
         void Delete(Expression<Func<Game, bool>> where);
         Domain.Entities.Game GetById(object id);
+
         IEnumerable<Game> GetAll();
         IEnumerable<Game> Where(Expression<Func<Game, bool>> where);
 
         #region Asyncs
 
         Task InsertAsync(Game entity);
+        Task<IEnumerable<Game>> GetPage(int skip);
+
         Task<Game> GetByIdAsync(object id);
         Task<IEnumerable<Game>> GetAllAsync();
         Task<Game> GetAsync(Expression<Func<Game, bool>> where);

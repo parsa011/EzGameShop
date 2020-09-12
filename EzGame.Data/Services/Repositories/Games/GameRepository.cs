@@ -35,7 +35,10 @@ namespace EzGame.Data.Services.Repositories.Games
             }
             Delete(entity);
         }
-
+        public async Task<IEnumerable<Game>> GetPage(int skip)
+        {
+            return await _db.Games.OrderBy(p => p.Id).Skip(skip).Include(p=>p.GameEditions).Where(p=>!p.IsDeleted).Take(25).Include(p => p.GameEditions).ToListAsync();
+        }
         public void Delete(Game entity)
         {
             if (_db.Entry(entity).State == EntityState.Detached)
