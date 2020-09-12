@@ -56,7 +56,7 @@ namespace EzGame.Data.Services.Repositories.Games
 
         public IEnumerable<Game> GetAll()
         {
-            return _db.Games.AsEnumerable();
+            return _db.Games.Include(p => p.GameEditions).AsEnumerable();
         }
 
         public async Task<IEnumerable<Game>> GetAllAsync()
