@@ -86,23 +86,21 @@
                     success: function (result) {
                         $("#exampleModal3").modal("hide");
                         if (result != null) {
-                            debugger;
                             $("tr#" + result.id).remove();
                         }
                     }
 
                 })
             })
-        })
+        });
         function OpenDeleteModel(obj) {
             var attr = obj.getAttribute("attr");
             $.ajax({
                 type: "Post",
-                url: "/admin/Game/GetGameById",
+                url: "/Admin/Game/GetGameById",
                 data: { id: attr },
                 success: function (result) {
                     if (result != null) {
-                        debugger;
                         $("#exampleModal3").modal("show");
                         $("#DeleteID").val(result.id);
                         document.getElementById("lal").innerHTML = ' ایا از حذف ' + result.title + ' اطمینان دارید؟';
