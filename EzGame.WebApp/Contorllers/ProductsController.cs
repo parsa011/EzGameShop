@@ -25,6 +25,12 @@ namespace EzGame.WebApp.Contorllers
         {
             var skip = (pageid - 1) * 25;
             var count = await _db.GameRepository.CountAsync();
+            if(count == 0)
+            {
+                ViewBag.GamesNull = "هیچ پستی موجود نیست";
+                _notification.AddWarningToastMessage("پستی موجود نیست");
+                return View();
+            }
             ViewBag.PageID = pageid;
             ViewBag.CountPage = count;
             var Games = (await _db.GameRepository.GetPage(skip));
@@ -44,6 +50,12 @@ namespace EzGame.WebApp.Contorllers
         public IActionResult TheLatestProduct()
         {
             var Games = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderByDescending(p => p.CreatedTime);
+            if (Games == null)
+            {
+                ViewBag.GamesNull = "هیچ پستی موجود نیست";
+                _notification.AddWarningToastMessage("پستی موجود نیست");
+                return View();
+            }
             return View("Index", Games);
         }
 
@@ -52,6 +64,12 @@ namespace EzGame.WebApp.Contorllers
         public IActionResult TheCheapestProducts()
         {
             var Games = _db.GameRepository.GetAll().Where(a=>!a.IsDeleted).OrderBy(p=>p.GameEditions[0].Price);
+            if (Games == null)
+            {
+                ViewBag.GamesNull = "هیچ پستی موجود نیست";
+                _notification.AddWarningToastMessage("پستی موجود نیست");
+                return View();
+            }
             return View("Index", Games);
         }
         
@@ -60,6 +78,12 @@ namespace EzGame.WebApp.Contorllers
         public IActionResult TheMostExpensiveProducts()
         {
             var Games = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderByDescending(p => p.GameEditions[0].Price);
+            if (Games == null)
+            {
+                ViewBag.GamesNull = "هیچ پستی موجود نیست";
+                _notification.AddWarningToastMessage("پستی موجود نیست");
+                return View();
+            }
             return View("Index", Games);
         }
     }

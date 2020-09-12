@@ -34,8 +34,9 @@
             <div class="tab-content" id="myTabContent">
 
                 @* محصولات *@
-
+                @ViewBag.GamesNull
                 <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
+
                     <div class="row">
                         @foreach (var item in Model)
                         {
