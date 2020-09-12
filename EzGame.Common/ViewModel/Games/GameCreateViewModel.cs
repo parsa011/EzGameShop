@@ -30,7 +30,7 @@ namespace EzGame.Common.ViewModel.Games
         public DateTime LastModifiedTime { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
         public IEnumerable<Platform> Platforms { get; set; }
-        public IEnumerable<GameEdition> gameEditions { get; set; }
+        public IEnumerable<GameEdition> GameEditions { get; set; }
 
     }
 }

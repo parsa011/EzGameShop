@@ -6,3 +6,6 @@ riderModule.iml
 /pageImages
 pageImages/
 .vs
+.vs/EzGame/config/applicationhost.config
+.vs/EzGame/v16/.suo
+EzGame.WebApp/Areas/Admin/Views/Shared/_Layout.cshtml

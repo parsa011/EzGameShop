@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EzGame.Data.Services.Repositories
@@ -53,6 +52,15 @@ namespace EzGame.Data.Services.Repositories
             {
                 Delete(item);
             }
+        }
+        public async Task<DollarPrice> GetLastPrice()
+        {
+            return await _db.DollarPrice.OrderByDescending(a => a.CreatedTime).FirstOrDefaultAsync();
+        }
+
+        public IEnumerable<DollarPrice> GetOrdered()
+        {
+            return _db.DollarPrice.OrderByDescending(a => a.CreatedTime);
         }
 
         public IEnumerable<DollarPrice> GetAll()

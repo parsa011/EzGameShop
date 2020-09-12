@@ -1,7 +1,7 @@
 @model GameCreateViewModel
 
 @{
-    ViewData["Title"] = "افزودن بازی";
+    ViewData["Title"] = "ویرایش بازی";
 }
 
 @{
@@ -12,7 +12,7 @@
 
 <div class="row" style="background: white; margin-top: 10px;border-radius: 5px;">
     <div class="text-center">
-        <h2>افزودن بازی</h2>
+        <h2>ویرایش بازی</h2>
     </div>
     <div class="col-md-4" style="width: 100%; padding: 27px;">
         <form asp-action="EditGame" enctype="multipart/form-data">
@@ -118,8 +118,8 @@
                             <li class="badge badge-info" onclick="RemoveGenere(this)">
                                 <p>@item.Title</p>
                                 <p>@item.Price</p>
-                                <input type="text" style="display:none" name="gameEditions[@GameEditionCount].Title" value="@item.Title" />
-                                <input type="text" style="display:none" name="gameEditions[@GameEditionCount].Price" value="@item.Price" />
+                                <input type="text" style="display:none" name="GameEdition[@GameEditionCount].Title" value="@item.Title" />
+                                <input type="text" style="display:none" name="GameEdition[@GameEditionCount].Price" value="@item.Price" />
 
                             </li>
                             GameEditionCount++;
@@ -128,7 +128,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="افزودن" class="btn btn-primary" style="width:100%" />
+                <input type="submit" value="ویرایش" class="btn btn-primary" style="width:100%" />
             </div>
         </form>
     </div>
@@ -142,10 +142,10 @@
         var GenresCount =@GenreCount;
         var GameEditionsCount=@GameEditionCount;
         function getaPlatformName(obj) {
-            var item = $("#PlatformAdd").val();
+            var item = $("#PlatformAdd");
             var html = '<li class="badge badge-info" onclick="RemovePlatform(this)">';
-            html += '<p>' + item + '</p>';
-            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Id" value="' + item + '" />';
+            html += '<p>' + item.text() + '</p>';
+            html += '<input  type="text" style="display:none" onkeyup="numberChange(this)" name="Platforms[' + platformsCount + '].Id" value="' + item.val() + '" />';
             html += '</li>';
             $("#selectplatform").append(html);
             platformsCount+=1;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Common.Filters.ActionFilters;
@@ -35,6 +36,13 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
 
         #region ViewBags
 
+        public async Task FillAllViewBags(string gameId)
+        {
+            ViewBag.GameGenre = (await _db.GameGenreRepository.GetAllAsync(p => p.GameId == gameId));
+            ViewBag.GamePlatform = (await _db.GamePlatformRepository.GetAllAsync(p => p.GameId == gameId));
+            ViewBag.GameEdition = (await _db.GameEditionRepository.GetAllAsync(p => p.GameId == gameId));
+        }
+
         public async Task FillGenresViewBag()
         {
             ViewBag.Genres = (await _db.GenreRepository.GetAllAsync(a => !a.IsDeleted)).Select(g => new SelectListItem(g.Title, g.Id.ToString()));
@@ -57,7 +65,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             };
             return View(viewmodel);
         }
-     
+
         [HttpGet]
         public async Task<IActionResult> AddGame()
         {
@@ -78,7 +86,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
                 return View(model);
             }
-            
+
             model.ImageName = await _fileManager.UploadImage(image, FileManagerType.FileType.GameImage);
             var game = new Game()
             {
@@ -142,10 +150,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 Platforms = await _db.PlatformRepository.GetAllAsync(a => !a.IsDeleted),
                 Genres = await _db.GenreRepository.GetAllAsync(a => !a.IsDeleted)
             };
-            ViewBag.GameGenre = (await _db.GameGenreRepository.GetAllAsync(p => p.GameId == game.Id));
-            ViewBag.GamePlatform = (await _db.GamePlatformRepository.GetAllAsync(p => p.GameId == game.Id));
-            ViewBag.GameEdition = (await _db.GameEditionRepository.GetAllAsync(p => p.GameId == game.Id));
-
+            await FillAllViewBags(game.Id);
             return View(model);
         }
 
@@ -153,8 +158,9 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditGame(GameCreateViewModel model, IFormFile image)
         {
-            if (!ModelState.IsValid || !model.Genres.Any() || !model.Platforms.Any())
+            if (!ModelState.IsValid || !model.Genres.Any() || !model.Platforms.Any() || model.GameEditions == null)
             {
+                await FillAllViewBags(model.Id);
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
                 return View(model);
             }
@@ -169,7 +175,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                 {
                     _fileManager.DeleteImage(game.ImageName, FileManagerType.FileType.GameImage);
                     model.Image = await _fileManager.UploadImage(image,
-                        FileManagerType.FileType.GameImage);    
+                        FileManagerType.FileType.GameImage);
                 }
             }
             // TODO Hello :D
@@ -178,7 +184,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             await _db.GameEditionRepository.DeleteAllRelations(game.Id);
             foreach (var item in model.Genres)
             {
-                var Genres = (await _db.GameGenreRepository.GetAllAsync(a => a.GameId==game.Id)).FirstOrDefault();
+                var Genres = (await _db.GameGenreRepository.GetAllAsync(a => a.GameId == game.Id)).FirstOrDefault();
                 await _db.GameGenreRepository.InsertAsync(new GameGenre()
                 {
                     Game = game,
@@ -196,17 +202,19 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                     PlatformId = platforms.PlatformId
                 });
             }
-            foreach (var item in model.gameEditions)
+
+            foreach (var item in model.GameEditions)
             {
 
                 await _db.GameEditionRepository.InsertAsync(new GameEdition()
                 {
                     Game = game,
                     GameId = game.Id,
-                    Title=item.Title,
-                    Price=item.Price
+                    Title = item.Title,
+                    Price = item.Price
                 });
             }
+
             game.Title = model.Title;
             game.ComingSoon = model.ComingSoon;
             game.Count = model.Count;
@@ -258,19 +266,19 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
             ViewBag.gameId = TempData["GameId"];
             return View();
         }
-       
+
         [HttpPost]
-        public async Task<ActionResult> AddGameEdition(GameAddGameEditionViewModel model,string gameId)
+        public async Task<ActionResult> AddGameEdition(GameAddGameEditionViewModel model, string gameId)
         {
 
-            if (string.IsNullOrEmpty(gameId) ||!model.gameEditions.Any())
+            if (string.IsNullOrEmpty(gameId) || !model.gameEditions.Any())
             {
                 _notification.AddWarningToastMessage("مقادیر را به درستی وارد نمایید");
                 return View(model);
             }
             foreach (var item in model.gameEditions)
             {
-               
+
                 var gameEdition = new GameEdition()
                 {
                     GameId = gameId,
@@ -280,7 +288,7 @@ namespace EzGame.WebApp.Areas.Admin.Controllers
                     CreatedTime = DateTime.Now,
                     LastModifiedTime = DateTime.Now
                 };
-               await _db.GameEditionRepository.InsertAsync(gameEdition);
+                await _db.GameEditionRepository.InsertAsync(gameEdition);
             }
             _db.SaveChange();
             return RedirectToAction(nameof(Index));

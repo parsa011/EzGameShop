@@ -24,7 +24,7 @@
                                     </h2>
                                     <div class="price">
                                         @*<del><span>@item.<span>تومان</span></span></del>*@
-                                        <ins><span>-@if (item.GameEditions.Any()) {<p>@item.GameEditions[0].Price</p>}<span>تومان</span></span></ins>
+                                        <ins><p>-@if (item.GameEditions.Any()) {<span>@item.GameEditions[0].Price</span>}<span>تومان</span></p></ins>
                                     </div>
                                 </div>
                             </div>
