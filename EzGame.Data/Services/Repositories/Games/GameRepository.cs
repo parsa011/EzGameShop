@@ -35,10 +35,7 @@ namespace EzGame.Data.Services.Repositories.Games
             }
             Delete(entity);
         }
-        public async Task<IEnumerable<Game>> GetPage(int skip)
-        {
-            return await _db.Games.OrderBy(p => p.Id).Skip(skip).Include(p=>p.GameEditions).Where(p=>!p.IsDeleted).Take(25).Include(p => p.GameEditions).ToListAsync();
-        }
+
         public void Delete(Game entity)
         {
             if (_db.Entry(entity).State == EntityState.Detached)
@@ -121,7 +118,11 @@ namespace EzGame.Data.Services.Repositories.Games
 
             return entities.AsEnumerable();
         }
-
+        public IEnumerable<Game> Paging(int take, int pageid, IEnumerable<Game> games)
+        {
+            var skip = (pageid - 1) * 25;
+           return games.Take(take).Skip(skip).Where(p => !p.IsDeleted);
+        }
         #region IDisposable Support
 
         private bool _disposedValue = false; // To detect redundant calls
@@ -153,6 +154,8 @@ namespace EzGame.Data.Services.Repositories.Games
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+       
         #endregion
     }
 }

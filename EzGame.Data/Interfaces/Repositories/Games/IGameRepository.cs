@@ -15,6 +15,7 @@ namespace EzGame.Data.Interfaces.Repositories.Games
         void Delete(Game entity);
         void Delete(Expression<Func<Game, bool>> where);
         Domain.Entities.Game GetById(object id);
+        IEnumerable<Game> Paging(int take, int pageid, IEnumerable<Game> games);
 
         IEnumerable<Game> GetAll();
         IEnumerable<Game> Where(Expression<Func<Game, bool>> where);
@@ -22,7 +23,6 @@ namespace EzGame.Data.Interfaces.Repositories.Games
         #region Asyncs
 
         Task InsertAsync(Game entity);
-        Task<IEnumerable<Game>> GetPage(int skip);
 
         Task<Game> GetByIdAsync(object id);
         Task<IEnumerable<Game>> GetAllAsync();

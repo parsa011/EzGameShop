@@ -23,17 +23,16 @@ namespace EzGame.WebApp.Contorllers
         [HttpGet]
         public async Task<IActionResult> Index(int pageid = 1)
         {
-            var skip = (pageid - 1) * 25;
-            var count = await _db.GameRepository.CountAsync();
-            if(count == 0)
+            var games = await _db.GameRepository.GetAllAsync();
+            ViewBag.CountPage = games.Count(a=>!a.IsDeleted);
+            ViewBag.PageID = pageid;
+            if (ViewBag.CountPage == 0)
             {
                 ViewBag.GamesNull = "هیچ پستی موجود نیست";
                 _notification.AddWarningToastMessage("پستی موجود نیست");
                 return View();
             }
-            ViewBag.PageID = pageid;
-            ViewBag.CountPage = count;
-            var Games = (await _db.GameRepository.GetPage(skip));
+            var Games = _db.GameRepository.Paging(25, pageid, games);
             return View(Games);
         }
 

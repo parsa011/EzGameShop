@@ -34,35 +34,44 @@
             <div class="tab-content" id="myTabContent">
 
                 @* محصولات *@
-                @ViewBag.GamesNull
                 <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
 
                     <div class="row">
-                        @foreach (var item in Model)
+                        @if (Model == null)
                         {
-                            <div class="col-lg-3 col-md-3 col-xs-12 order-1 d-block mb-3">
-                                <section class="product-box product product-type-simple">
-                                    <div class="thumb">
-                                        <a href="" class="d-block">
-                                            <img width="400" height="300" src="~/GameImages/@item.ImageName">
-                                        </a>
-                                    </div>
-                                    <div class="title">
-                                        <a href="~/products/detail/500">
-                                            @item.Title--@if (item.GameEditions.Any())
-                                            {<p>@item.GameEditions[0].Title</p>}
-                                        </a>
-                                    </div>
-                                    <div class="price">
-                                        <span class="amount">
-                                            @if (item.GameEditions.Any())
-                                            {<p>@item.GameEditions[0].Price</p>}
-                                            <span>تومان</span>
-                                        </span>
-                                    </div>
-                                </section>
-                            </div>
+                            <p style=" justify-content: center; padding: 12px;">
+                                @ViewBag.GamesNull
+                            </p>
                         }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="col-lg-3 col-md-3 col-xs-12 order-1 d-block mb-3">
+                                    <section class="product-box product product-type-simple">
+                                        <div class="thumb">
+                                            <a href="" class="d-block">
+                                                <img width="400" height="300" src="~/GameImages/@item.ImageName">
+                                            </a>
+                                        </div>
+                                        <div class="title">
+                                            <a href="~/products/detail/500">
+                                                @item.Title--@if (item.GameEditions.Any())
+                                                {<p>@item.GameEditions[0].Title</p>}
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <span class="amount">
+                                                @if (item.GameEditions.Any())
+                                                {<p>@item.GameEditions[0].Price</p>}
+                                                <span>تومان</span>
+                                            </span>
+                                        </div>
+                                    </section>
+                                </div>
+                            }
+                        }
+
 
                     </div>
                 </div>
