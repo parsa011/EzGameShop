@@ -27,7 +27,6 @@ namespace EzGame.Domain.Entities
         public List<GameGenre> GameGenre { get; set; }
         public List<GameEdition> GameEditions { get; set; }
         public List<GameVisit> GameVisit { get; set; }
-
         public List<GamePlatform> GamePlatform { get; set; }
 
 

@@ -23,15 +23,26 @@ namespace EzGame.WebApp.Contorllers
         //Get 
         [HttpGet]
         [Route("/Products/Index")]
-        public async Task<IActionResult> Index(string name,int pageid = 1,int sortby=1)
+        public async Task<IActionResult> Index(string platform,string genre,int pageid = 1,int sortby=1)
         {
             ViewBag.PageID = pageid;
-
+            var games = new List<Game>();
+            if (!string.IsNullOrEmpty(platform) || !string.IsNullOrEmpty(genre))
+            {
+                var searchesPlatform = (await _db.PlatformRepository.GetAllAsync(a => a.Title == platform)).FirstOrDefault();
+                var searchesGenre = (await _db.GenreRepository.GetAllAsync(a => a.Title == genre)).FirstOrDefault();
+                games = (await _db.GameRepository.GetAllAsync(a => 
+                    a.GamePlatform.All(a => a.Platform == searchesPlatform) ||
+                    a.GameGenre.All(a => a.Genre == searchesGenre))).ToList();
+            }
+            else
+            {
+                games = _db.GameRepository.Paging(25, pageid).ToList();
+            }
             switch (sortby)
             {
                 case 1:
                     // همه
-                    var games = await _db.GameRepository.GetAllAsync();
                     ViewBag.CountPage = games.Count(a => !a.IsDeleted);
                     var Games = _db.GameRepository.Paging(25, pageid, games);
                     if (Games == null || ViewBag.CountPage == 0)
@@ -43,7 +54,7 @@ namespace EzGame.WebApp.Contorllers
                     return View(Games);
                 case 2:
                     //جدید ترین ها
-                    var GamesByLatestProduc = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderByDescending(p => p.CreatedTime);
+                    var GamesByLatestProduc = games.Where(a => !a.IsDeleted).OrderByDescending(p => p.CreatedTime);
                     ViewBag.CountPage = GamesByLatestProduc.Count(a => !a.IsDeleted);
                     if (GamesByLatestProduc == null || ViewBag.CountPage == 0)
                     {
@@ -55,7 +66,7 @@ namespace EzGame.WebApp.Contorllers
                     return View(getPageByLatestProduc);
                 case 3:
                     // ارزان ترین
-                    var GamesByCheapestProducts = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderBy(p => p.GameEditions[0].Price);
+                    var GamesByCheapestProducts = games.Where(a => !a.IsDeleted).OrderBy(p => p.GameEditions[0].Price);
                     ViewBag.CountPage = GamesByCheapestProducts.Count(a => !a.IsDeleted);
                     if (GamesByCheapestProducts == null || ViewBag.CountPage == 0)
                     {
@@ -67,7 +78,7 @@ namespace EzGame.WebApp.Contorllers
                     return View(getPageByCheapestProducts);
                 case 4:
                     // گران ترین
-                    var GamesByMostExpensiveProducts = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderByDescending(p => p.GameEditions[0].Price);
+                    var GamesByMostExpensiveProducts = games.Where(a => !a.IsDeleted).OrderByDescending(p => p.GameEditions[0].Price);
                     ViewBag.CountPage = GamesByMostExpensiveProducts.Count(a => !a.IsDeleted);
                     if (GamesByMostExpensiveProducts == null|| ViewBag.CountPage==0)
                     {

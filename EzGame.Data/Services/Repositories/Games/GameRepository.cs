@@ -23,7 +23,7 @@ namespace EzGame.Data.Services.Repositories.Games
 
         public async Task<int> CountAsync()
         {
-            return await _db.Games.CountAsync(p=>!p.IsDeleted);
+            return await _db.Games.CountAsync(p => !p.IsDeleted);
         }
 
         public void Delete(object id)
@@ -61,7 +61,7 @@ namespace EzGame.Data.Services.Repositories.Games
 
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
-            return await _db.Games.Include(p=>p.GamePlatform).Include(p=>p.GameEditions).Include(p=>p.GameGenre).ToListAsync();
+            return await _db.Games.Include(p => p.GamePlatform).Include(p => p.GameEditions).Include(p => p.GameGenre).ToListAsync();
         }
 
         public async Task<ICollection<Game>> GetAllAsync(Expression<Func<Game, bool>> match)
@@ -118,11 +118,19 @@ namespace EzGame.Data.Services.Repositories.Games
 
             return entities.AsEnumerable();
         }
+
         public IEnumerable<Game> Paging(int take, int pageid, IEnumerable<Game> games)
         {
             var skip = (pageid - 1) * 25;
-           return games.Take(take).Skip(skip).Where(p => !p.IsDeleted);
+            return games.Where(p => !p.IsDeleted).Take(take).Skip(skip);
         }
+
+        public IEnumerable<Game> Paging(int take, int pageid)
+        {
+            var skip = (pageid - 1) * 25;
+            return _db.Games.Where(a => !a.IsDeleted).Skip(skip).Take(take);
+        }
+
         #region IDisposable Support
 
         private bool _disposedValue = false; // To detect redundant calls
@@ -155,7 +163,7 @@ namespace EzGame.Data.Services.Repositories.Games
             GC.SuppressFinalize(this);
         }
 
-       
+
         #endregion
     }
 }
