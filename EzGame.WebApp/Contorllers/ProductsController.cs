@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using EzGame.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,56 +32,6 @@ namespace EzGame.WebApp.Contorllers
             }
             var Games = _db.GameRepository.Paging(25, pageid, games);
             return View(Games);
-        }
-
-        //[HttpGet]
-        //[Route("/Products/TheMostVisited")]
-        //public IActionResult TheMostVisited()
-        //{
-        //    var Games =_db.GameRepository.Where(p=>p.);
-        //    return View("Index",Games);
-        //}
-
-        [HttpGet]
-        [Route("/Products/TheLatestProduct")]
-        public IActionResult TheLatestProduct()
-        {
-            var Games = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderByDescending(p => p.CreatedTime);
-            if (Games == null)
-            {
-                ViewBag.GamesNull = "هیچ پستی موجود نیست";
-                _notification.AddWarningToastMessage("پستی موجود نیست");
-                return View();
-            }
-            return View("Index", Games);
-        }
-
-        [HttpGet]
-        [Route("/Products/TheCheapestProducts")]
-        public IActionResult TheCheapestProducts()
-        {
-            var Games = _db.GameRepository.GetAll().Where(a=>!a.IsDeleted).OrderBy(p=>p.GameEditions[0].Price);
-            if (Games == null)
-            {
-                ViewBag.GamesNull = "هیچ پستی موجود نیست";
-                _notification.AddWarningToastMessage("پستی موجود نیست");
-                return View();
-            }
-            return View("Index", Games);
-        }
-        
-        [HttpGet]
-        [Route("/Products/TheMostExpensiveProducts")]
-        public IActionResult TheMostExpensiveProducts()
-        {
-            var Games = _db.GameRepository.GetAll().Where(a => !a.IsDeleted).OrderByDescending(p => p.GameEditions[0].Price);
-            if (Games == null)
-            {
-                ViewBag.GamesNull = "هیچ پستی موجود نیست";
-                _notification.AddWarningToastMessage("پستی موجود نیست");
-                return View();
-            }
-            return View("Index", Games);
         }
     }
 }

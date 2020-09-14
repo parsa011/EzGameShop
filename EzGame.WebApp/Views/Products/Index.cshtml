@@ -13,19 +13,19 @@
             <div class="nav-sort-tabs-res">
                 <ul class="nav sort-tabs-options" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link @Html.IsActive("Products", "TheMostVisited")" href="/Products/TheMostVisited" role="tab" aria-controls="Most-visited" aria-selected="true">پربازدیدترین</a>
+                        <a class="nav-link" href="/Products/TheMostVisited" role="tab" aria-controls="Most-visited" aria-selected="true">پربازدیدترین</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="" role="tab" aria-controls="Bestselling" aria-selected="false">پرفروش&zwnj;ترین&zwnj;</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @Html.IsActive("Products", "TheLatestProduct")" href="/Products/TheLatestProduct" role="tab" aria-controls="newest" aria-selected="false">جدیدترین</a>
+                        <a class="nav-link" href="/Products/TheLatestProduct" role="tab" aria-controls="newest" aria-selected="false">جدیدترین</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @Html.IsActive("Products", "TheCheapestProducts")" href="/Products/TheCheapestProducts" role="tab" aria-controls="cheapest" aria-selected="false">ارزان&zwnj;ترین</a>
+                        <a class="nav-link" href="/Products/TheCheapestProducts" role="tab" aria-controls="cheapest" aria-selected="false">ارزان&zwnj;ترین</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @Html.IsActive("Products", "TheMostExpensiveProducts")" href="/Products/TheMostExpensiveProducts" role="tab" aria-controls="most-expensive" aria-selected="false">گران&zwnj;ترین</a>
+                        <a class="nav-link" href="/Products/TheMostExpensiveProducts" role="tab" aria-controls="most-expensive" aria-selected="false">گران&zwnj;ترین</a>
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,7 @@
             <div class="tab-content" id="myTabContent">
 
                 @* محصولات *@
-                <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
+                <div class="tab-pane fade show active" id="Most-visited">
 
                     <div class="row">
                         @if (Model == null)
@@ -81,11 +81,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        @if (ViewBag.PageID == 1)
-                        {
-
-                        }
-                        else
+                        @if (ViewBag.PageID != 1)
                         {
                             var c = ViewBag.PageID - 1;
                             <a class="page-link" href="/Products/Index?pageid=@c" aria-label="Previous">
@@ -98,19 +94,15 @@
                         <li class="@(((int)ViewBag.PageID == i) ? "page-item active" : "page-item"))"><a class="page-link" href="/Products/Index?pageid=@i">@i</a></li>
 
                     }
-                    <li class="page-item">
-                        @if (ViewBag.PageID == ViewBag.CountPage - 1)
-                        {
-
-                        }
-                        else
-                        {
-                            var c = ViewBag.PageID + 1;
-                            <a class="page-link" href="/Products/Index?pageid=@c" aria-label="Previous">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        }
-                    </li>
+                <li class="page-item">
+                    @if (ViewBag.PageID != ViewBag.CountPage - 1)
+                    {
+                        var c = ViewBag.PageID + 1;
+                        <a class="page-link" href="/Products/Index?pageid=@c" aria-label="Previous">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    }
+                </li>
                 </ul>
             </nav>
         </div>
