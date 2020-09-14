@@ -27,6 +27,8 @@ namespace EzGame.Data.Context
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<GameDiscount> GameDiscounts { get; set; }
         public virtual DbSet<GameEdition> GameEditions  { get; set; }
+        public virtual DbSet<GameVisit> GameVisits { get; set; }
+
         public virtual DbSet<GameGenre> GameGenres { get; set; }
         public virtual DbSet<GamePlatform> GamePlatforms  { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }

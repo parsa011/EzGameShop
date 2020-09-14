@@ -20,12 +20,15 @@ namespace EzGame.Domain.Entities
         public string Summary { get; set; }
         public int Count { get; set; }
         public bool ComingSoon { get; set; }
+        public int Visit { get; set; }
         //relations
         public virtual IEnumerable<Comment> Comments { get; set; }
         public virtual IEnumerable<GameDiscount> GameDiscount { get; set; }
-        public virtual IEnumerable<GameGenre> GameGenre { get; set; }
-        public  List<GameEdition> GameEditions { get; set; }
-        public virtual IEnumerable<GamePlatform> GamePlatform { get; set; }
+        public List<GameGenre> GameGenre { get; set; }
+        public List<GameEdition> GameEditions { get; set; }
+        public List<GameVisit> GameVisit { get; set; }
+
+        public List<GamePlatform> GamePlatform { get; set; }
 
 
     }
