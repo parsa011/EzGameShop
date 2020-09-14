@@ -15,6 +15,7 @@ namespace EzGame.Data.Interfaces
         ICommentRepository CommentRepository { get; }
         IDollarPriceRepository DollarPriceRepository { get; }
         IGenreRepository GenreRepository { get; }
+        IGameVisitRepository GameVisitRepository { get; }
         IPlatformRepository PlatformRepository { get; }
         IUserRepository UserRepository { get; }
         void SaveChange();
